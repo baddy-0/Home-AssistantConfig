@@ -680,10 +680,10 @@
   action:
   - service: light.turn_off
     data:
-      transition: 15
+      transition: 10
     entity_id: light.luce_sala
   - service: light.turn_off
     data:
-      transition: 15
+      transition: 10
     entity_id: light.luce_ingresso
   mode: single
