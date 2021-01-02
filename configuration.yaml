@@ -1,0 +1,427 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+discovery:
+frontend:
+  themes: !include_dir_merge_named themes/
+zeroconf:
+  default_interface: true
+
+homeassistant:
+   customize: !include customize.yaml
+
+recorder:
+  purge_keep_days: 14
+  exclude:
+    entities:
+    - sensor.owl_intuition_electricity_radio
+
+auto_backup:
+  auto_purge: true
+  keep_days: 21
+  
+http:
+#   ssl_certificate: /ssl/fullchain.pem
+#   ssl_key: /ssl/privkey.pem
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+#   base_url: badhome1.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+  - platform: marytts
+    host: 'localhost'
+    port: 59125
+    codec: 'WAVE_FILE'
+    voice: 'istc-lucia-hsmm'
+    language: 'it'
+
+logger:
+  default: warn
+  logs:
+    homeassistant.components.http.ban: warning  
+    homeassistant.components.sensor: error
+#  logs:
+#    homeassistant.components.thomson: debug
+  
+hacs:
+  token:  34d4813118fd59a098b22e35ebda4446d2b93ad9
+  appdaemon: true
+  python_script: true
+
+stream:
+
+shelly:
+
+influxdb:
+  host: localhost
+  username: homeassistant
+  password: !secret gw2-account-pass
+
+mqtt:
+  broker: 127.0.0.1
+  port: 1883
+  client_id: home-assistant
+  keepalive: 60
+  username: !secret mqtt_user
+  password: !secret gw2-account-pass
+  discovery: true
+  discovery_prefix: homeassistant
+  #birth_message:
+  #  topic: 'hass/status'
+  #  payload: 'online'
+  #will_message:
+  #  topic: 'hass/status'
+  #  payload: 'offline'
+
+# zwave:
+#   usb_path: /dev/ttyACM0
+
+device_tracker:
+#  - platform: nmap_tracker
+#    hosts: 192.168.2.1-240
+#    exclude: 192.168.1.68
+#    home_interval: 10
+  - platform: fritz
+    host: 192.168.2.1
+    username: admin
+    password: !secret gw1-pass
+  - platform: bluetooth_tracker
+
+# L'intergrazione per ora non funziona
+#eovacs:
+#  username: !secret ecovacs-account-user
+#  password: !secret ecovacs-account-pass
+#  country: it
+#  continent: eu
+  
+deebot:
+  username: !secret ecovacs-account-user
+  password: !secret ecovacs-account-pass
+  country: it
+  continent: eu
+  deviceid:
+    - E08D12789B09HE6H0214
+  # Optional
+  live_map: True                    # Enable Live Map.. may cause issues on low power hardware | Default: True
+  show_color_rooms: False           # Enable draw room colors as in the app | Default: False
+  livemappath: 'www/'   # Path where to save live_map (Each bot will have XXX.png where XXX is the vacbot name)  
+    
+#Enable Cameras
+camera:
+#  - platform: generic
+#    name: davanti
+#    still_image_url: !secret Camera1_URL
+#    stream_source: !secret CameraDavanti_Source 
+  
+#  - platform: generic
+#    name: dietro
+#    still_image_url: !secret Camera2_URL
+#    stream_source: !secret CameraDietro_Source 
+
+#  - platform: generic
+#    name: tempo
+#    still_image_url: https://www.yr.no/sted/Italia/Emilia-Romagna/Bologna/meteogram.svg
+#    content_type: 'image/svg+xml'
+
+  - platform: generic
+    name: Faustina_live_map
+    still_image_url: "http://192.168.2.250:8123/local/Faustina_liveMap.png"
+    verify_ssl: false
+
+# owntracks:
+#   max_gps_accuracy: 200
+#   secret: a608a51fd748f5355d73c85d06df39ea
+
+ble_monitor:
+
+sensor:
+  - platform: fritzbox_netmonitor
+    host: 192.168.2.1
+  - platform: fritzbox_callmonitor
+    host: 192.168.2.1
+    username: admin
+    password: !secret gw1-pass
+  - platform: season
+  - platform: owlintuition
+    host: 192.168.2.250       # IP address that the NetworkOWL sends to (your Home Assistant IP)
+    port: 4321                # Port number of above
+    mode: triphase
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_free
+      - type: processor_use
+      - type: last_boot
+  - platform: command_line
+    name: CPU temp
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+  - platform: waqi
+    token: 0375f47f2f4c91fce87de3a2a3cca7da776f1d09
+    locations:
+      - Giardini Margherita, Emilia Romagna
+      - Porta San Felice, Emilia Romagna
+      - San Lazzaro, Emilia Romagna
+  - platform: diskspace
+    name: Backup
+    path: "/config/backup"
+    unit_of_measure: "GB"
+
+binary_sensor:
+  - platform: uptimerobot
+    api_key: ur611115-7b713895e63dcceca20653e9
+#  - platform: template
+#    sensors:
+#      motion_davanti:
+#        friendly_name: Camera Davanti
+#        device_class: motion
+#        entity_id: camera.davanti
+#        value_template: "{{ is_state('camera.davanti', 'motion') }}"
+#        delay_off: 
+#            seconds: 30
+#      motion_dietro:
+#        friendly_name: Camera Dietro
+#        device_class: motion
+#        entity_id: camera.dietro
+#        value_template: "{{ is_state('camera.dietro', 'motion') }}"
+#        delay_off: 
+#            seconds: 30
+
+switch:
+  - platform: wake_on_lan
+    mac: "08:60:6e:85:c8:fa"
+#  - platform: template
+#    switches:
+#      camera_davanti_ftp:
+#        value_template: "{{ is_state_attr('camera.davanti', 'ftp_enabled', true) }}"
+#        turn_on:
+#          service: camera.enable_ftp
+#          data:
+#            entity_id: camera.davanti
+#        turn_off:
+#          service: camera.disable_ftp
+#          data:
+#            entity_id: camera.davanti
+#        icon_template: >-
+#          {% if is_state_attr('camera.davanti', 'ftp_enabled', true) %}
+#            mdi:filmstrip
+#          {% else %}
+#            mdi:filmstrip-off
+#          {% endif %}
+#      camera_davanti_email:
+#        value_template: "{{ is_state_attr('camera.davanti', 'email_enabled', true) }}"
+#        turn_on:
+#          service: camera.enable_email
+#          data:
+#            entity_id: camera.davanti
+#        turn_off:
+#          service: camera.disable_email
+#          data:
+#            entity_id: camera.davanti
+#        icon_template: >-
+#          {% if is_state_attr('camera.davanti', 'email_enabled', true) %}
+#            mdi:bell
+#          {% else %}
+#            mdi:bell-off
+#          {% endif %}
+#      camera_dietro_email:
+#        value_template: "{{ is_state_attr('camera.dietro', 'email_enabled', true) }}"
+#        turn_on:
+#          service: camera.enable_email
+#          data:
+#            entity_id: camera.dietro
+#        turn_off:
+#          service: camera.disable_email
+#          data:
+#            entity_id: camera.dietro
+#        icon_template: >-
+#          {% if is_state_attr('camera.dietro', 'email_enabled', true) %}
+#            mdi:bell
+#          {% else %}
+#            mdi:bell-off
+#          {% endif %}
+#      camera_dietro_ftp:
+#        value_template: "{{ is_state_attr('camera.dietro', 'ftp_enabled', true) }}"
+#        turn_on:
+#          service: camera.enable_ftp
+#          data:
+#            entity_id: camera.dietro
+#        turn_off:
+#          service: camera.disable_ftp
+#          data:
+#            entity_id: camera.dietro
+#        icon_template: >-
+#          {% if is_state_attr('camera.dietro', 'ftp_enabled', true) %}
+#            mdi:filmstrip
+#          {% else %}
+#            mdi:filmstrip-off
+#          {% endif %}
+#      camera_davanti_ir_lights:
+#        value_template: "{{ is_state_attr('camera.davanti', 'ir_lights_enabled', true) }}"
+#        turn_on:
+#          service: camera.enable_ir_lights
+#          data:
+#            entity_id: camera.davanti
+#        turn_off:
+#          service: camera.disable_ir_lights
+#          data:
+#            entity_id: camera.davanti
+##        icon_template: >-
+##          {% if is_state_attr('camera.davanti', 'ir_lights_enabled', true) %}
+##            mdi:flashlight
+##          {% else %}
+##            mdi:flashlight-off
+#          {% endif %}
+#      camera_dietro_ir_lights:
+#        value_template: "{{ is_state_attr('camera.dietro', 'ir_lights_enabled', true) }}"
+#        turn_on:
+#          service: camera.enable_ir_lights
+#          data:
+#            entity_id: camera.dietro
+#        turn_off:
+#          service: camera.disable_ir_lights
+#          data:
+#            entity_id: camera.dietro
+##        icon_template: >-
+##          {% if is_state_attr('camera.dietro', 'ir_lights_enabled', true) %}
+##            mdi:flashlight
+##          {% else %}
+##            mdi:flashlight-off
+##          {% endif %}
+
+sonoff:
+  username: !secret ewelink-account-user
+  password: !secret ewelink-account-pass
+  #scan_interval: 60 
+  #grace_period: 600
+  #api_region: 'eu' 
+  Xentity_prefix: True 
+  debug: False 
+
+  force_update: [power]
+  scan_interval: '00:05:00'  # (optional) default 5 minutes
+  sensors: [power, current, voltage]
+
+#cover:
+#  - platform: mqtt
+#    name: Tapparella grande Sala
+#    command_topic: "shellies/shellyswitch25-B94EF4/roller/0/command"
+#    position_topic: "shellies/shellyswitch25-B94EF4/roller/0/pos"
+#    set_position_topic: "shellies/shellyswitch25-B94EF4/roller/0/command/pos"
+#    availability_topic: "shellies/shellyswitch25-B94EF4/online"    
+#    payload_available: "true"
+#    payload_not_available: "false"
+#    qos: 1
+#    retain: false
+#    payload_open: "open"
+#    payload_close: "close"
+#    payload_stop: "stop"
+#    position_open: 100
+#    position_closed: 0
+#    optimistic: false
+
+zone:
+  - name: Home
+    latitude: 44.5000075
+    longitude: 11.3930976562
+    radius: 80
+    icon: mdi:home-assistant
+  - name: Cineca
+    latitude: 44.4862383
+    longitude: 11.2598059
+    radius: 100
+    icon: mdi:office-building
+  - name: Dermatologia
+    latitude: 44.4937175
+    longitude: 11.3576210937
+    radius: 100
+    icon: mdi:hospital-building
+  - name: CasaLarga
+    latitude: 44.499496
+    longitude: 11.3877873
+    radius: 100
+    icon: mdi:home-map-marker
+
+proximity:
+  home:
+    ignored_zones:
+      - cineca
+    devices:
+      - device_tracker.daniele_p30
+      - device_tracker.barbara_p20
+      - device_tracker.luna_p20
+    tolerance: 50
+  cineca:
+    zone: cineca
+    devices:
+      - device_tracker.daniele_p30
+    tolerance: 10
+
+utility_meter:
+  energy:
+    source: sensor.owl_intuition_electricity_power_p1
+    cycle: monthly
+    
+cast:
+  media_player:
+    - host: 192.168.2.112
+
+google_assistant:
+  project_id: baddyapp1
+  service_account: !include googlehome1.json
+  exposed_domains:
+    - light
+    - switch
+
+media_player:
+  - platform: mpd
+    host: 192.168.2.250
+  - platform: kodi
+    host: 192.168.2.235
+    name: kodi
+    username: kodi
+    password: !secret gw2-account-pass
+  - platform: androidtv
+    name: Android TV
+    host: 192.168.2.115
+  - platform: androidtv
+    name: Android TV
+    host: 192.168.2.114
+    apps:
+      com.amazon.tv.launcher: "Fire TV"
+    turn_on_command: "input keyevent 3"
+    turn_off_command: "input keyevent 223"
+    state_detection_rules:
+      'com.amazon.tv.launcher':
+        - 'standby'
+      'com.netflix.ninja':
+        - 'media_session_state'
+      'com.ellation.vrv':
+        - 'audio_state'
+      'com.plexapp.android':
+        - 'paused':
+            'media_session_state': 3  # this indentation is important!
+            'wake_lock_size': 1       # this indentation is important!
+        - 'playing':
+            'media_session_state': 3  # this indentation is important!
+        - 'standby'
+      'com.amazon.avod':
+        - 'playing':
+            'wake_lock_size': 4  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 3  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 2  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 1  # this indentation is important!
+        - 'standby'
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+logbook: !include logbook.yaml
+input_number: !include input_number.yaml

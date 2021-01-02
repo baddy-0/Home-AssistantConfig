@@ -1,0 +1,18 @@
+  exclude:
+    domains:
+      - sun
+      - binary_sensor
+      - camera
+      - device_tracker
+      - group
+      - input_number
+      - input_text
+      - script
+      - sensor
+      - weather
+      - zone
+      - automation
+    entities:
+      - sensor.last_boot
+      - sensor.date
+      - sensor.owl_intuition_electricity_battery_level

@@ -1,0 +1,18 @@
+#################################################################
+## Input_number
+#################################################################
+
+  timer_goccia1:
+    name: 'Timer irrigazione goccia 1'
+    initial: 3
+    min: 1
+    max: 20
+    step: 1
+
+  timer_pioggia1:
+    name: 'Timer irrigazione pioggia 1'
+    initial: 10
+    min: 1
+    max: 20
+    step: 1
+

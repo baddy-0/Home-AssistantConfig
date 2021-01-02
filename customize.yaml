@@ -1,0 +1,53 @@
+switch.sonoff_1000241f44:
+  friendly_name: Freezer
+sensor.sonoff_1000241f44_power:
+  friendly_name: Freezer consumo
+person.daniele:
+  entity_picture: /local/daniele.jpg
+person.barbara:
+  entity_picture: /local/barbara.jpg
+person.luna:
+  entity_picture: /local/luna.jpg
+sensor.owl_intuition_cost_today:
+  friendly_name: Cost Today
+sensor.owl_intuition_electricity_power:
+  friendly_name: Electricity Power T
+sensor.owl_intuition_electricity_power_p1:
+  friendly_name: Electricity Power P1
+sensor.owl_intuition_electricity_power_p2:
+  friendly_name: Electricity Power P2
+sensor.owl_intuition_electricity_today:
+  friendly_name: Electricity Today T
+sensor.owl_intuition_electricity_today_p1:
+  friendly_name: Electricity Today P1
+sensor.owl_intuition_electricity_today_p2:
+  friendly_name: Electricity Today P2
+sensor.owl_intuition_electricity_today_p3:
+  friendly_name: Electricity Today P3
+sensor.owl_intuition_electricity_power_p3:
+  friendly_name: Electricity Power P3
+switch.sonoff_100024314c:
+  friendly_name: computer
+  icon: mdi:desktop-classic
+sensor.sonoff_100024314c_power:
+  friendly_name: computer consumo
+switch.sonoff_10000bd876:
+  icon: mdi:home-roof
+switch.sonoff_10000cd625:
+  icon: mdi:pine-tree
+device_tracker.ipad_di_luna:
+  icon: mdi:tablet-ipad
+switch.tasmota:
+  icon: mdi:dip-switch
+switch.4chpro3_1:
+  icon: mdi:watering-can
+switch.4chpro3_2:
+  icon: mdi:water
+switch.4chpro3_3:
+  icon: mdi:watering-can
+switch.4chpro3_4:
+  icon: mdi:water
+sensor.lightlevel_7:
+  friendly_name: Sala_Motion
+sensor.shelly_shsw_25_68c63af915de_1_current_consumption:
+  friendly_name: shelly05

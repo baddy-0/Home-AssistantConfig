@@ -1,0 +1,19 @@
+family:
+    name: Family
+    entities:
+      - person.barbara
+      - person.daniele
+      - person.luna
+
+natale_int:
+   name: Natale interno
+   entities:
+     - switch.sonoff_10000cd625
+     - switch.sonoff_100024314c
+     
+movimento:
+   name: Tutti i sensori
+   entities:
+     - binary_sensor.presence_3
+     - binary_sensor.presence_8
+     - binary_sensor.presence_13

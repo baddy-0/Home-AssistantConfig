@@ -1,0 +1,106 @@
+ramp_light:
+  alias: Ramp Light Brightness
+  description: Ramp light brightness up or down
+  fields:
+    direction:
+      description: 'Direction to change brightness: up or down'
+      example: up
+    light:
+      description: Light entity_id
+      example: light.family_room_lamp
+  mode: restart
+  sequence:
+  - repeat:
+      while:
+      - condition: template
+        value_template: "{% set br = state_attr(light, 'brightness')|int(0) %} {%\
+          \ set mn = states('input_number.light_minimum')|int %} {% set mx = states('input_number.light_maximum')|int\
+          \ %} {{ direction == 'up' and br < mx or\n   direction == 'down' and br\
+          \ > mn }}\n"
+      sequence:
+      - service: light.turn_on
+        data:
+          entity_id: '{{ light }}'
+          brightness: "{% set br = state_attr(light, 'brightness')|int(0) %} {% set\
+            \ mn = states('input_number.light_minimum')|int %} {% set mx = states('input_number.light_maximum')|int\
+            \ %} {% set st = states('input_number.light_step')|int %} {% if direction\
+            \ == 'up' %}\n  {{ [br + st, mx]|min }}\n{% else %}\n  {{ [br - st, mn]|max\
+            \ }}\n{% endif %}\n"
+      - delay:
+          milliseconds: '{{ states(''input_number.light_delay_ms'')|int }}'
+attiva_goccia_davanti:
+  alias: Attiva goccia davanti per un po'
+  sequence:
+  - type: turn_on
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_1
+    domain: switch
+  - delay: '{{ states(''input_number.timer_goccia1'') | multiply(60) | int }}'
+  - type: turn_off
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_1
+    domain: switch
+  mode: single
+  icon: mdi:watering-can
+attiva_pioggia_davanti:
+  alias: Attiva pioggia davanti per un po'
+  sequence:
+  - type: turn_on
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_2
+    domain: switch
+  - delay: 00:{{ states('input_number.timer_pioggia1') | int }}:00
+  - type: turn_off
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_2
+    domain: switch
+  mode: single
+  icon: mdi:water
+attiva_goccia_dietro:
+  alias: Attiva goccia dietro per un po
+  sequence:
+  - type: turn_on
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_3
+    domain: switch
+  - delay: 00:{{ states('input_number.timer_goccia1') | int }}:00
+  - type: turn_off
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_3
+    domain: switch
+  mode: single
+  icon: mdi:watering-can
+attiva_pioggia_dietro:
+  alias: Attiva pioggia dietro per un po'
+  sequence:
+  - type: turn_on
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_4
+    domain: switch
+  - delay: 00:{{ states('input_number.timer_pioggia1') | int }}:00
+  - type: turn_off
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.4chpro3_4
+    domain: switch
+  mode: single
+  icon: mdi:water
+messaggio:
+  alias: Messaggio allarme potenza
+  sequence:
+  - service: tts.marytts_say
+    data:
+      message: '{{ states(''input_text.messaggio_allarme_potenza'') }}'
+      entity_id: media_player.mpd
+  mode: single
+'1606340245296':
+  alias: Messaggio di prova
+  sequence:
+  - service: tts.marytts_say
+    data:
+      message: 'Benvenuti a casa, la temperatura esterna è di {{ states(''sensor.temperature_14'')
+        }} gradi, la temperatura interna è di {{ states(''sensor.temperature_4'')
+        }} gradi,  sono le {{ now().strftime(''%H e %M'') + '' minuti'' }}
+
+        '
+      entity_id: media_player.mpd
+  mode: single

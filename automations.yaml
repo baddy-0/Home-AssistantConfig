@@ -1,0 +1,689 @@
+- id: '1569881736251'
+  alias: Abbassa tapparella BD
+  description: Se la tapparella è aperta >20 la abbassa prima dell'alba d'estate
+  trigger:
+  - event: sunrise
+    offset: -00:30:00
+    platform: sun
+  condition:
+  - condition: template
+    value_template: '{{ state_attr(''cover.bd'', ''current_position'') > 20 }}'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.season
+      state: spring
+    - condition: state
+      entity_id: sensor.season
+      state: summer
+  action:
+  - data:
+      position: 20
+    entity_id: cover.bd
+    service: cover.set_cover_position
+  mode: single
+- id: prova notifica
+  alias: Bentornata Barbara
+  trigger:
+  - entity_id: person.barbara
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: person.daniele
+    state: not_home
+  action:
+  - data:
+      message: Barbara è arrivata a casa
+    service: notify.mobile_app_baddyphon
+  mode: single
+- id: New_version_available
+  alias: New version available
+  trigger:
+  - entity_id: binary_sensor.updater
+    from: 'off'
+    platform: state
+    to: 'on'
+  action:
+  - data:
+      message: New HA version available
+    service: notify.mobile_app_ane_lx1
+- id: '1575463882293'
+  alias: Accendi Natale interno
+  description: Quando arriva qualcuno dopo il tramonto accendi
+  trigger:
+  - entity_id: group.family
+    platform: state
+    to: home
+  condition:
+  - after: sunset
+    condition: sun
+  action:
+  - data:
+      entity_id: group.natale_int
+    service: switch.turn_on
+- id: '1575463882294'
+  alias: Spegni Natale interno
+  description: Quando vanno via tutti spegni tutto
+  trigger:
+  - entity_id: group.family
+    from: home
+    platform: state
+  condition: []
+  action:
+  - data:
+      entity_id: group.natale_int
+    service: switch.turn_off
+- id: '1575467387263'
+  alias: Spegni Natale all'alba
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  - platform: time
+    at: '23:00:00'
+  condition: []
+  action:
+  - data:
+      entity_id: group.natale_int switch.sonoff_10000bd876
+    service: switch.turn_off
+  mode: single
+- id: '1576086841029'
+  alias: Accendi renna al tramonto
+  description: ''
+  trigger:
+  - event: sunset
+    platform: sun
+  - platform: time
+    at: 06:00:00
+  condition: []
+  action:
+  - data:
+      entity_id: switch.sonoff_10000bd876
+    service: switch.turn_on
+  mode: single
+- id: washing_machine_finished
+  alias: Prova Alexa
+  trigger:
+  - entity_id: sensor.washing_machine
+    from: Washing
+    platform: state
+    to: Not washing
+  action:
+  - data:
+      data:
+        type: announce
+      message: Yo Remco.. The washing machine is finished. Get off the couch.
+      target:
+      - media_player.danieledi_fire_tv_stick
+    service: notify.alexa_media
+- id: '1577808518867'
+  alias: Allarme movimento
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.presence_13
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.presence_3
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.presence_8
+    from: 'off'
+    platform: state
+    to: 'on'
+  - device_id: bacec0848acc4994976441b3dd32edf2
+    domain: binary_sensor
+    entity_id: binary_sensor.presence_13
+    platform: device
+    type: motion
+  - device_id: dc28a59dc2f54520a54e1f493e934bcc
+    domain: binary_sensor
+    entity_id: binary_sensor.presence_8
+    platform: device
+    type: motion
+  - device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    domain: binary_sensor
+    entity_id: binary_sensor.presence_3
+    platform: device
+    type: motion
+  - type: opened
+    platform: device
+    device_id: 259817e2fe8711ea854039ed2706fe33
+    entity_id: binary_sensor.shelly_shdw_1_98f4abf3b38d_door_window
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 64f4679712f711eb94fbc156c84a53b3
+    entity_id: binary_sensor.door_dietro_ingresso
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    entity_id: binary_sensor.door_dietro_finestra
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: e2076f4913bd11eb99a169d7a4a39c24
+    entity_id: binary_sensor.door_luna
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 0bb49c59c69df727e00ceb6ff783ab95
+    entity_id: binary_sensor.door_lavoro
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: group.family
+    state: not_home
+  action:
+  - data:
+      message: "ALLARME a casa da {{ state_attr(trigger.entity_id, 'friendly_name')\
+        \ }}\n\nalle {{ now().strftime('%T') }} \n"
+    service: notify.mobile_app_baddyphon
+  mode: single
+- id: '1577808518869'
+  alias: Google Assistant Sync
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - service: google_assistant.request_sync
+    data:
+      agent_user_id: 084b4949ef8c491892100f34a6718f96
+- id: '1585945029552'
+  alias: Irrigazione
+  description: Irrigazione mezzora prima dell'alba LU-MA-ME-GI-VE-SA-DO
+  trigger:
+  - event: sunrise
+    offset: -00:30:00
+    platform: sun
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - wed
+    - fri
+    - sun
+  action:
+  - service: script.attiva_goccia_davanti
+    data: {}
+    entity_id: script.1604516928596
+  - service: script.attiva_goccia_dietro
+    data: {}
+  - service: script.attiva_pioggia_davanti
+    data: {}
+  - service: script.attiva_pioggia_dietro
+    data: {}
+  mode: single
+- id: '1577808518870'
+  alias: Backup settimanale
+  trigger:
+  - at: 02:30:00
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+  action:
+  - service: auto_backup.snapshot_full
+  - service: auto_backup.purge
+    data: {}
+  mode: single
+- id: '1593735871190'
+  alias: Zanzare
+  description: ''
+  trigger:
+  - minutes: '1'
+    platform: time_pattern
+  condition:
+  - after: '19:00:00'
+    before: 07:00:00
+    condition: time
+  action:
+  - data: {}
+    entity_id: switch.sonoff_10000cd625
+    service: switch.turn_on
+  - delay: 00:30:00
+  - data: {}
+    entity_id: switch.sonoff_10000cd625
+    service: switch.turn_off
+  mode: single
+- id: '1595081553612'
+  alias: Allarme porta
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 259817e2fe8711ea854039ed2706fe33
+    entity_id: binary_sensor.shelly_shdw_1_98f4abf3b38d_door_window
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 64f4679712f711eb94fbc156c84a53b3
+    entity_id: binary_sensor.door_dietro_ingresso
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    entity_id: binary_sensor.door_dietro_finestra
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: group.family
+    state: not_home
+  action:
+  - data:
+      message: Hanno aperto la porta di casa
+      title: Attenzione
+    service: notify.mobile_app_baddyphon
+  mode: single
+- id: '1598029687855'
+  alias: Abbassa Tapparelle su assenza
+  description: Quando non c'è nessuno in casa chiudi le tapparelle
+  trigger:
+  - entity_id: group.family
+    for: 0:30:00
+    from: home
+    platform: state
+    to: not_home
+  condition:
+  - type: is_not_open
+    condition: device
+    device_id: 64f4679712f711eb94fbc156c84a53b3
+    entity_id: binary_sensor.door_sala_ingresso
+    domain: binary_sensor
+  - type: is_not_open
+    condition: device
+    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    entity_id: binary_sensor.door_sala_grande
+    domain: binary_sensor
+  action:
+  - scene: scene.notte
+  - data: {}
+    entity_id: cover.sala_ingresso
+    service: cover.close_cover
+  - data: {}
+    entity_id: cover.lavoro
+    service: cover.close_cover
+  - data: {}
+    entity_id: cover.luna
+    service: cover.close_cover
+  - delay: 00:02:00
+  - service: cover.open_cover
+    data: {}
+    entity_id: cover.sala_finestre
+  mode: single
+- id: '1599082030678'
+  alias: ZZ notifica movimenti
+  description: ''
+  trigger:
+  - device_id: dc28a59dc2f54520a54e1f493e934bcc
+    domain: binary_sensor
+    entity_id: binary_sensor.presence_8
+    platform: device
+    type: motion
+  - type: motion
+    platform: device
+    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    entity_id: binary_sensor.presence_3
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: bacec0848acc4994976441b3dd32edf2
+    entity_id: binary_sensor.presence_13
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 259817e2fe8711ea854039ed2706fe33
+    entity_id: binary_sensor.shelly_shdw_1_98f4abf3b38d_door_window
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 64f4679712f711eb94fbc156c84a53b3
+    entity_id: binary_sensor.door_dietro_ingresso
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    entity_id: binary_sensor.door_dietro_finestra
+    domain: binary_sensor
+  condition: []
+  action:
+  - data:
+      message: "Movimento rilevato {{ state_attr(trigger.entity_id, 'friendly_name')\
+        \ }}\n\nalle {{ now().strftime('%T') }} \n"
+    service: notify.mobile_app_baddyphon
+  mode: single
+- id: '1601185115550'
+  alias: Tag Prova is scanned
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 1d62a500-f4fa-4a2b-9c36-45edeaaf987d
+  condition: []
+  action:
+  - service: cover.open_cover
+    data: {}
+    entity_id: cover.sala_grande
+  mode: single
+- id: '1601963769243'
+  alias: Attiva Notte se le luci in sala sono spente
+  description: Se tutti sono a casa, è inverno, la porta dietro è chiusa
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.sala_motion_lightlevel
+    below: '2'
+    for: 00:15:00
+  condition:
+  - condition: state
+    state: Home
+    entity_id: group.family
+  - type: is_not_open
+    condition: device
+    device_id: 64f4679712f711eb94fbc156c84a53b3
+    entity_id: binary_sensor.door_sala_ingresso
+    domain: binary_sensor
+  - condition: numeric_state
+    entity_id: sensor.sala_motion_lightlevel
+    below: '3'
+  - condition: state
+    entity_id: sensor.season
+    state: winter
+  - condition: time
+    after: '23:00:00'
+    before: 03:00:00
+  action:
+  - scene: scene.notte
+  - service: cover.close_cover
+    data: {}
+    entity_id: cover.sala_ingresso
+  mode: single
+- id: '1601963950089'
+  alias: Attiva giorno
+  description: Apre le tapparelle della sala
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    entity_id: binary_sensor.ballatoio_motion
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: dc28a59dc2f54520a54e1f493e934bcc
+    entity_id: binary_sensor.sala_motion
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: 259421cbb2b9cc9d0006310a51921241
+    entity_id: binary_sensor.tradfri_motion_sensor
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: sensor.season
+    state: winter
+  - condition: sun
+    before: sunset
+    before_offset: -06:00:00
+    after: sunrise
+    after_offset: -02:30:00
+  - condition: time
+    after: 06:00:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+    before: '10:00:00'
+  action:
+  - device_id: 193bb6a60d624db68f866584106c6838
+    domain: cover
+    entity_id: cover.sala_ingresso
+    type: set_position
+    position: 100
+  - scene: scene.giorno
+  mode: single
+- id: '1603385428012'
+  alias: Accendi/Spegni luce sala
+  description: ''
+  trigger:
+  - platform: event
+    event_type: deconz_event
+    event_data:
+      device_id: 93a337e9148411ebb917c3ac83bd9f68
+  - device_id: 93a337e9148411ebb917c3ac83bd9f68
+    domain: deconz
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_on
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.luce_sala
+  mode: single
+- id: '1603610332180'
+  alias: Luce notturna Ballatoio
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    entity_id: binary_sensor.ballatoio_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      transition: 10
+      brightness: 20
+    entity_id: light.luce_scala
+  mode: single
+- id: '1603632039817'
+  alias: Luce Spegni primo piano
+  description: Se non ci sono movimenti spegne tutto
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    entity_id: binary_sensor.ballatoio_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - type: no_motion
+    platform: device
+    device_id: bacec0848acc4994976441b3dd32edf2
+    entity_id: binary_sensor.presence_13
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 84aa0e1c15fa11eb8cfb1f4364eb60d7
+    entity_id: light.luce_scala
+    domain: light
+  - type: turn_off
+    device_id: 38f08a7827eedac204b9ea6cbe774d8f
+    entity_id: light.luce_lettobd
+    domain: light
+  mode: single
+- id: '1605560799342'
+  alias: Bentornata Luna
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.luna
+    to: home
+  condition:
+  - condition: device
+    device_id: ed83e1e0d6f141078bed132f279e134b
+    domain: cover
+    entity_id: cover.luna
+    type: is_closed
+  action:
+  - device_id: ed83e1e0d6f141078bed132f279e134b
+    domain: cover
+    entity_id: cover.luna
+    type: set_position
+    position: 100
+  mode: single
+- id: '1605810085540'
+  alias: Allarme consumo
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.owl_intuition_electricity_power_p1
+    for: 00:02:30
+    above: '2900'
+  condition: []
+  action:
+  - service: notify.mobile_app_baddyphon
+    data:
+      message: Il consumo di casa è maggiore di 2900W da quasi 3 minuti
+      title: Attenzione
+  - service: notify.mobile_app_barbara_p20
+    data:
+      message: Il consumo di casa è maggiore di 2900W da quasi 3 minuti
+      title: Attenzione
+  - service: notify.mobile_app_ane_lx1
+    data:
+      message: Il consumo di casa è maggiore di 2900W da quasi 3 minuti
+      title: Attenzione
+  - service: script.messaggio
+    data: {}
+  mode: single
+- id: '1606648227856'
+  alias: Luce notturna BD
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: bacec0848acc4994976441b3dd32edf2
+    entity_id: binary_sensor.presence_13
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 20
+      rgb_color:
+      - '{{ (range(0, 255)|random) }}'
+      - '{{ (range(0, 128)|random) }}'
+      - '{{ (range(0, 255)|random) }}'
+    entity_id: light.luce_lettobd
+  - service: light.turn_on
+    data:
+      transition: 10
+      brightness: 10
+    entity_id: light.luce_scala
+  mode: single
+- id: '1609004028527'
+  alias: Accendi Sala su Movimenti
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sala_motion
+    to: 'on'
+  - type: motion
+    platform: device
+    device_id: 259421cbb2b9cc9d0006310a51921241
+    entity_id: binary_sensor.tradfri_motion_sensor
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 259817e2fe8711ea854039ed2706fe33
+    entity_id: binary_sensor.shelly_shdw_1_98f4abf3b38d_door_window
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 64f4679712f711eb94fbc156c84a53b3
+    entity_id: binary_sensor.door_sala_ingresso
+    domain: binary_sensor
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.sala_motion_lightlevel
+    below: '3'
+  action:
+  - service: light.turn_on
+    data:
+      transition: 10
+      brightness: 255
+      color_temp: 390
+    entity_id: light.luce_sala
+  - service: timer.start
+    data: {}
+    entity_id: timer.luce_sala
+  - service: light.turn_on
+    data:
+      transition: 10
+      brightness: 255
+    entity_id: light.luce_ingresso
+  mode: restart
+- id: '1609077213722'
+  alias: Accendi/Spegni Luce sala Blueprint
+  description: ''
+  use_blueprint:
+    path: Bram_Kragten/deconz-ikea-five-button-remote-for-lights.yaml
+    input:
+      brightness: '100'
+      remote: 93a337e9148411ebb917c3ac83bd9f68
+      light:
+        entity_id:
+        - light.luce_sala
+        - light.luce_ingresso
+      button_left_short: []
+      force_brightness: false
+- id: '1609091129171'
+  alias: Abbassa tapparelle al tramonto
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: +01:00:00
+  condition:
+  - condition: state
+    entity_id: sensor.season
+    state: winter
+  - type: is_not_open
+    condition: device
+    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    entity_id: binary_sensor.door_sala_grande
+    domain: binary_sensor
+  - type: is_not_open
+    condition: device
+    device_id: 0bb49c59c69df727e00ceb6ff783ab95
+    entity_id: binary_sensor.door_lavoro
+    domain: binary_sensor
+  action:
+  - scene: scene.notte
+  mode: single
+- id: '1609267516143'
+  alias: Spegni luce sala su timer
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.luce_sala
+  condition: []
+  action:
+  - service: light.turn_off
+    data:
+      transition: 15
+    entity_id: light.luce_sala
+  - service: light.turn_off
+    data:
+      transition: 15
+    entity_id: light.luce_ingresso
+  mode: single
