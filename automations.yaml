@@ -307,11 +307,11 @@
     entity_id: cover.sala_ingresso
     service: cover.close_cover
   - data: {}
-    entity_id: cover.lavoro
-    service: cover.close_cover
-  - data: {}
     entity_id: cover.luna
     service: cover.close_cover
+  - service: cover.close_cover
+    data: {}
+    entity_id: cover.cucina
   - delay: 00:02:00
   - service: cover.open_cover
     data: {}
@@ -376,8 +376,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.sala_motion_lightlevel
-    below: '2'
-    for: 00:15:00
+    below: '3'
   condition:
   - condition: state
     state: Home
@@ -387,9 +386,6 @@
     device_id: 64f4679712f711eb94fbc156c84a53b3
     entity_id: binary_sensor.door_sala_ingresso
     domain: binary_sensor
-  - condition: numeric_state
-    entity_id: sensor.sala_motion_lightlevel
-    below: '3'
   - condition: state
     entity_id: sensor.season
     state: winter
