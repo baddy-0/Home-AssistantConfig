@@ -480,6 +480,10 @@
       transition: 10
       brightness: 20
     entity_id: light.luce_scala
+  - service: light.turn_on
+    data:
+      brightness: 1
+    entity_id: light.luce_ballatoio
   mode: single
 - id: '1603632039817'
   alias: Luce Spegni primo piano
@@ -512,6 +516,10 @@
   - type: turn_off
     device_id: 38f08a7827eedac204b9ea6cbe774d8f
     entity_id: light.luce_lettobd
+    domain: light
+  - type: turn_off
+    device_id: 7bb97f275400fef03a76c75038651b86
+    entity_id: light.luce_ballatoio
     domain: light
   mode: single
 - id: '1605560799342'
@@ -583,6 +591,10 @@
       transition: 10
       brightness: 10
     entity_id: light.luce_scala
+  - service: light.turn_on
+    data:
+      brightness: 1
+    entity_id: light.luce_ballatoio
   mode: single
 - id: '1609004028527'
   alias: Accendi Sala su Movimenti
@@ -682,4 +694,29 @@
     data:
       transition: 10
     entity_id: light.luce_ingresso
+  mode: single
+- id: '1610053784881'
+  alias: Spegni ikea all'avvio
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 84962673148311eb9c83cb18ed4f5af0
+    entity_id: light.luce_sala
+    domain: light
+  - type: turn_off
+    device_id: 7bb97f275400fef03a76c75038651b86
+    entity_id: light.luce_ballatoio
+    domain: light
+  - type: turn_off
+    device_id: bfa498f0167d11eb84525f97d370594c
+    entity_id: light.luce_ingresso
+    domain: light
+  - type: turn_off
+    device_id: 84aa0e1c15fa11eb8cfb1f4364eb60d7
+    entity_id: light.luce_scala
+    domain: light
   mode: single
