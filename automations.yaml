@@ -90,18 +90,18 @@
     service: switch.turn_off
   mode: single
 - id: '1576086841029'
-  alias: Accendi renna al tramonto
+  alias: Accendi Natale al tramonto
   description: ''
   trigger:
   - event: sunset
     platform: sun
-  - platform: time
-    at: 06:00:00
-  condition: []
+  condition:
+  - condition: template
+    value_template: '{{now().strftime(''%m%d'') <= ''0106'' or now().strftime(''%m%d'')
+      >= ''1208''}} '
   action:
-  - data:
-      entity_id: switch.sonoff_10000bd876
-    service: switch.turn_on
+  - service: switch.turn_on
+    entity_id: switch.sonoff_10000bd876
   mode: single
 - id: washing_machine_finished
   alias: Prova Alexa
@@ -379,7 +379,7 @@
     below: '3'
   condition:
   - condition: state
-    state: Home
+    state: home
     entity_id: group.family
   - type: is_not_open
     condition: device
@@ -389,9 +389,6 @@
   - condition: state
     entity_id: sensor.season
     state: winter
-  - condition: time
-    after: '23:00:00'
-    before: 03:00:00
   action:
   - scene: scene.notte
   - service: cover.close_cover
@@ -549,23 +546,21 @@
   - platform: numeric_state
     entity_id: sensor.owl_intuition_electricity_power_p1
     for: 00:02:30
-    above: '2900'
+    above: '3000'
   condition: []
   action:
   - service: notify.mobile_app_baddyphon
     data:
-      message: Il consumo di casa è maggiore di 2900W da quasi 3 minuti
+      message: Il consumo di casa è maggiore di 3000W da quasi 3 minuti
       title: Attenzione
   - service: notify.mobile_app_barbara_p20
     data:
-      message: Il consumo di casa è maggiore di 2900W da quasi 3 minuti
+      message: Il consumo di casa è maggiore di 3000W da quasi 3 minuti
       title: Attenzione
   - service: notify.mobile_app_ane_lx1
     data:
-      message: Il consumo di casa è maggiore di 2900W da quasi 3 minuti
+      message: Il consumo di casa è maggiore di 3000W da quasi 3 minuti
       title: Attenzione
-  - service: script.messaggio
-    data: {}
   mode: single
 - id: '1606648227856'
   alias: Luce notturna BD
@@ -718,5 +713,9 @@
   - type: turn_off
     device_id: 84aa0e1c15fa11eb8cfb1f4364eb60d7
     entity_id: light.luce_scala
+    domain: light
+  - type: turn_off
+    device_id: 7bb97f275400fef03a76c75038651b86
+    entity_id: light.luce_ballatoio
     domain: light
   mode: single
