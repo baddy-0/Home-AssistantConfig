@@ -376,7 +376,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.sala_motion_lightlevel
-    below: '3'
+    below: '2'
   condition:
   - condition: state
     state: home
@@ -389,6 +389,9 @@
   - condition: state
     entity_id: sensor.season
     state: winter
+  - condition: time
+    before: 06:00:00
+    after: '23:00:00'
   action:
   - scene: scene.notte
   - service: cover.close_cover
