@@ -45,7 +45,7 @@ logger:
 #    homeassistant.components.thomson: debug
   
 hacs:
-  token:  34d4813118fd59a098b22e35ebda4446d2b93ad9
+  token: !secret hacs_token
   appdaemon: true
   python_script: true
 
@@ -172,7 +172,7 @@ sensor:
 
 binary_sensor:
   - platform: uptimerobot
-    api_key: ur611115-7b713895e63dcceca20653e9
+    api_key: !secret uptimerobot_token
 #  - platform: template
 #    sensors:
 #      motion_davanti:
