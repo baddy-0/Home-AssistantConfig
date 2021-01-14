@@ -48,7 +48,8 @@
   action:
   - data:
       message: New HA version available
-    service: notify.mobile_app_ane_lx1
+    service: notify.mobile_app_baddyphon
+  mode: single
 - id: '1575463882293'
   alias: Accendi Natale interno
   description: Quando arriva qualcuno dopo il tramonto accendi
@@ -392,6 +393,9 @@
   - condition: time
     before: 06:00:00
     after: '23:00:00'
+  - condition: state
+    entity_id: input_boolean.stop_automazioni
+    state: 'off'
   action:
   - scene: scene.notte
   - service: cover.close_cover
@@ -437,6 +441,9 @@
     - sat
     - sun
     before: '10:00:00'
+  - condition: state
+    entity_id: input_boolean.stop_automazioni
+    state: 'off'
   action:
   - device_id: 193bb6a60d624db68f866584106c6838
     domain: cover
@@ -671,6 +678,9 @@
     device_id: 0bb49c59c69df727e00ceb6ff783ab95
     entity_id: binary_sensor.door_lavoro
     domain: binary_sensor
+  - condition: state
+    entity_id: input_boolean.stop_automazioni
+    state: 'off'
   action:
   - scene: scene.notte
   mode: single
