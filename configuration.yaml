@@ -169,6 +169,17 @@ sensor:
     name: Backup
     path: "/config/backup"
     unit_of_measure: "GB"
+  - platform: template
+    sensors:
+      valve_termo_studio:
+        friendly_name: "Valve Termo_studio"
+        value_template: "{{ state_attr('climate.termo_studio', 'valve') }}"
+        unit_of_measurement: '%'
+      valve_termo_lavoro:
+        friendly_name: "Valve Termo_lavoro"
+        value_template: "{{ state_attr('climate.termo_lavoro', 'valve') }}"
+        unit_of_measurement: '%'
+
 
 binary_sensor:
   - platform: uptimerobot
