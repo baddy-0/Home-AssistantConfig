@@ -123,33 +123,28 @@
   alias: Allarme movimento
   description: ''
   trigger:
-  - entity_id: binary_sensor.presence_13
+  - entity_id: binary_sensor.sala_motion
     from: 'off'
     platform: state
     to: 'on'
-  - entity_id: binary_sensor.presence_3
+  - entity_id: binary_sensor.motion_bd
     from: 'off'
     platform: state
     to: 'on'
-  - entity_id: binary_sensor.presence_8
+  - entity_id: binary_sensor.ballatoio_motion
     from: 'off'
     platform: state
     to: 'on'
-  - device_id: bacec0848acc4994976441b3dd32edf2
-    domain: binary_sensor
-    entity_id: binary_sensor.presence_13
+  - type: motion
     platform: device
-    type: motion
-  - device_id: dc28a59dc2f54520a54e1f493e934bcc
+    device_id: bacec0848acc4994976441b3dd32edf2
+    entity_id: binary_sensor.motion_bd
     domain: binary_sensor
-    entity_id: binary_sensor.presence_8
+  - type: motion
     platform: device
-    type: motion
-  - device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    entity_id: binary_sensor.ballatoio_motion
     domain: binary_sensor
-    entity_id: binary_sensor.presence_3
-    platform: device
-    type: motion
   - type: opened
     platform: device
     device_id: 259817e2fe8711ea854039ed2706fe33
@@ -158,12 +153,12 @@
   - type: opened
     platform: device
     device_id: 64f4679712f711eb94fbc156c84a53b3
-    entity_id: binary_sensor.door_dietro_ingresso
+    entity_id: binary_sensor.door_sala_ingresso
     domain: binary_sensor
   - type: opened
     platform: device
     device_id: 3b642f7c12f911ebb06b8d30438d5428
-    entity_id: binary_sensor.door_dietro_finestra
+    entity_id: binary_sensor.door_sala_grande
     domain: binary_sensor
   - type: opened
     platform: device
@@ -322,20 +317,20 @@
   alias: ZZ notifica movimenti
   description: ''
   trigger:
-  - device_id: dc28a59dc2f54520a54e1f493e934bcc
-    domain: binary_sensor
-    entity_id: binary_sensor.presence_8
+  - type: motion
     platform: device
-    type: motion
+    device_id: dc28a59dc2f54520a54e1f493e934bcc
+    entity_id: binary_sensor.sala_motion
+    domain: binary_sensor
   - type: motion
     platform: device
     device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
-    entity_id: binary_sensor.presence_3
+    entity_id: binary_sensor.ballatoio_motion
     domain: binary_sensor
   - type: motion
     platform: device
     device_id: bacec0848acc4994976441b3dd32edf2
-    entity_id: binary_sensor.presence_13
+    entity_id: binary_sensor.motion_bd
     domain: binary_sensor
   - type: opened
     platform: device
@@ -345,12 +340,12 @@
   - type: opened
     platform: device
     device_id: 64f4679712f711eb94fbc156c84a53b3
-    entity_id: binary_sensor.door_dietro_ingresso
+    entity_id: binary_sensor.door_sala_ingresso
     domain: binary_sensor
   - type: opened
     platform: device
     device_id: 3b642f7c12f911ebb06b8d30438d5428
-    entity_id: binary_sensor.door_dietro_finestra
+    entity_id: binary_sensor.door_sala_grande
     domain: binary_sensor
   condition: []
   action:
@@ -508,12 +503,8 @@
   - type: no_motion
     platform: device
     device_id: bacec0848acc4994976441b3dd32edf2
-    entity_id: binary_sensor.presence_13
+    entity_id: binary_sensor.motion_bd
     domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
   condition: []
   action:
   - type: turn_off
@@ -579,7 +570,7 @@
   - type: motion
     platform: device
     device_id: bacec0848acc4994976441b3dd32edf2
-    entity_id: binary_sensor.presence_13
+    entity_id: binary_sensor.motion_bd
     domain: binary_sensor
   condition: []
   action:
