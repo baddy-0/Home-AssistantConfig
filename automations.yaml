@@ -190,6 +190,7 @@
   - service: google_assistant.request_sync
     data:
       agent_user_id: 084b4949ef8c491892100f34a6718f96
+  mode: single
 - id: '1585945029552'
   alias: Irrigazione
   description: Irrigazione mezzora prima dell'alba LU-MA-ME-GI-VE-SA-DO
@@ -396,6 +397,9 @@
   - service: cover.close_cover
     data: {}
     entity_id: cover.sala_ingresso
+  - service: cover.close_cover
+    data: {}
+    entity_id: cover.cucina
   mode: single
 - id: '1601963950089'
   alias: Attiva giorno
@@ -414,7 +418,7 @@
   - type: motion
     platform: device
     device_id: 259421cbb2b9cc9d0006310a51921241
-    entity_id: binary_sensor.tradfri_motion_sensor
+    entity_id: binary_sensor.ikea_of_sweden_tradfri_motion_sensor_180125fe_on_off
     domain: binary_sensor
   condition:
   - condition: state
@@ -547,7 +551,7 @@
   - platform: numeric_state
     entity_id: sensor.owl_intuition_electricity_power_p1
     for: 00:02:30
-    above: '3000'
+    above: '3100'
   condition: []
   action:
   - service: notify.mobile_app_baddyphon
@@ -602,7 +606,7 @@
   - type: motion
     platform: device
     device_id: 259421cbb2b9cc9d0006310a51921241
-    entity_id: binary_sensor.tradfri_motion_sensor
+    entity_id: binary_sensor.ikea_of_sweden_tradfri_motion_sensor_180125fe_on_off
     domain: binary_sensor
   - type: opened
     platform: device
@@ -703,10 +707,6 @@
   condition: []
   action:
   - type: turn_off
-    device_id: 84962673148311eb9c83cb18ed4f5af0
-    entity_id: light.luce_sala
-    domain: light
-  - type: turn_off
     device_id: 7bb97f275400fef03a76c75038651b86
     entity_id: light.luce_ballatoio
     domain: light
@@ -719,7 +719,7 @@
     entity_id: light.luce_scala
     domain: light
   - type: turn_off
-    device_id: 7bb97f275400fef03a76c75038651b86
-    entity_id: light.luce_ballatoio
+    device_id: 84962673148311eb9c83cb18ed4f5af0
+    entity_id: light.luce_sala
     domain: light
   mode: single
