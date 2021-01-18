@@ -143,7 +143,7 @@
       over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.01 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Sala-grande
       supported_features: 15
       state: closed
@@ -175,7 +175,7 @@
       over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.01 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Sala-finestre
       supported_features: 15
       state: closed
@@ -197,27 +197,18 @@
       state: closed
     climate.termo_lavoro:
       hvac_modes:
-      - auto
-      - heat
       - 'off'
+      - heat
       min_temp: 7
-      max_temp: 35
-      preset_modes:
-      - auto
-      - boost
-      - comfort
-      - complex
-      - eco
-      - holiday
-      - manual
-      current_temperature: 18
+      max_temp: 30
+      current_temperature: 18.5
       temperature: 18
-      preset_mode: manual
-      offset: -100
-      valve: 0
-      friendly_name: Termo Lavoro
-      supported_features: 17
-      state: auto
+      hvac_action: heating
+      system_mode: '[4]/heat'
+      occupied_heating_setpoint: 1800
+      friendly_name: Termo lavoro
+      supported_features: 1
+      state: heat
     cover.bd:
       current_position: 22
       shelly_type: Shelly 2.5 (Roller)
@@ -236,41 +227,16 @@
       state: open
     climate.termo_studio:
       hvac_modes:
-      - auto
-      - heat
       - 'off'
+      - heat
       min_temp: 7
-      max_temp: 35
-      preset_modes:
-      - auto
-      - boost
-      - comfort
-      - complex
-      - eco
-      - holiday
-      - manual
+      max_temp: 30
       current_temperature: 19
       temperature: 19
-      preset_mode: manual
-      offset: -100
-      valve: 100
+      hvac_action: heating
+      system_mode: '[4]/heat'
+      occupied_heating_setpoint: 1900
       friendly_name: Termo Studio
-      supported_features: 17
-      state: auto
-    cover.cucina:
-      current_position: 0
-      shelly_type: Shelly 2.5 (Roller)
-      shelly_id: 68C63AF96C40
-      ip_address: 192.168.2.128
-      protocols:
-      - CoAP-discovery
-      - CoAP-msg
-      - poll
-      over_temp: 0
-      has_firmware_update: false
-      cloud_status: connected
-      total_consumption: 0.0 kWh
-      friendly_name: Tapp Cucina
-      supported_features: 15
-      state: closed
+      supported_features: 1
+      state: heat
   icon: mdi:weather-night

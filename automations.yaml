@@ -309,10 +309,15 @@
   - service: cover.close_cover
     data: {}
     entity_id: cover.cucina
-  - delay: 00:02:00
-  - service: cover.open_cover
-    data: {}
+  - delay: 00:01:00
+  - service: cover.set_cover_position
+    data:
+      position: 50
     entity_id: cover.sala_finestre
+  - service: cover.set_cover_position
+    data:
+      position: 50
+    entity_id: cover.studio
   mode: single
 - id: '1599082030678'
   alias: ZZ notifica movimenti
@@ -629,14 +634,14 @@
       brightness: 255
       color_temp: 390
     entity_id: light.luce_sala
-  - service: timer.start
-    data: {}
-    entity_id: timer.luce_sala
   - service: light.turn_on
     data:
       transition: 10
       brightness: 255
     entity_id: light.luce_ingresso
+  - service: timer.start
+    data: {}
+    entity_id: timer.luce_sala
   mode: restart
 - id: '1609077213722'
   alias: Accendi/Spegni Luce sala Blueprint
@@ -644,7 +649,7 @@
   use_blueprint:
     path: Bram_Kragten/deconz-ikea-five-button-remote-for-lights.yaml
     input:
-      brightness: '100'
+      brightness: 100
       remote: 93a337e9148411ebb917c3ac83bd9f68
       light:
         entity_id:
