@@ -460,12 +460,8 @@
   alias: Accendi/Spegni luce sala
   description: ''
   trigger:
-  - platform: event
-    event_type: deconz_event
-    event_data:
-      device_id: 93a337e9148411ebb917c3ac83bd9f68
   - device_id: 93a337e9148411ebb917c3ac83bd9f68
-    domain: deconz
+    domain: zha
     platform: device
     type: remote_button_short_press
     subtype: turn_on
@@ -644,19 +640,19 @@
     entity_id: timer.luce_sala
   mode: restart
 - id: '1609077213722'
-  alias: Accendi/Spegni Luce sala Blueprint
+  alias: Accendi/Spegni Luce sala Blueprint DECONZ
   description: ''
   use_blueprint:
     path: Bram_Kragten/deconz-ikea-five-button-remote-for-lights.yaml
     input:
-      brightness: 100
-      remote: 93a337e9148411ebb917c3ac83bd9f68
+      brightness: '100'
       light:
         entity_id:
         - light.luce_sala
         - light.luce_ingresso
       button_left_short: []
       force_brightness: false
+      remote: 93a337e9148411ebb917c3ac83bd9f68
 - id: '1609091129171'
   alias: Abbassa tapparelle al tramonto
   description: ''
@@ -728,3 +724,26 @@
     entity_id: light.luce_sala
     domain: light
   mode: single
+- id: '1610953776683'
+  alias: Accendi/Spegni Luce sala Blueprint ZHA
+  description: ''
+  use_blueprint:
+    path: wormie_dk/zha-ikea-five-button-remote.yaml
+    input:
+      remote: 93a337e9148411ebb917c3ac83bd9f68
+      button_on_off:
+      - type: toggle
+        device_id: 84962673148311eb9c83cb18ed4f5af0
+        entity_id: light.luce_sala
+        domain: light
+- id: '1610954088671'
+  alias: ZHA - IKEA five button remote for lights
+  description: ''
+  use_blueprint:
+    path: frenck/zha-ikea-five-button-remote-for-lights.yaml
+    input:
+      brightness: '100'
+      remote: 93a337e9148411ebb917c3ac83bd9f68
+      light:
+        device_id: 84962673148311eb9c83cb18ed4f5af0
+      force_brightness: false
