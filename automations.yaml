@@ -373,12 +373,18 @@
     entity_id: cover.sala_grande
   mode: single
 - id: '1601963769243'
-  alias: Attiva Notte se le luci in sala sono spente
+  alias: Attiva Notte se in sala non c'è più nessuno
   description: Se tutti sono a casa, è inverno, la porta dietro è chiusa
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.sala_motion_lightlevel
-    below: '2'
+  - type: not_occupied
+    platform: device
+    device_id: dc28a59dc2f54520a54e1f493e934bcc
+    entity_id: binary_sensor.sala_motion_occupancy
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
   condition:
   - condition: state
     state: home
