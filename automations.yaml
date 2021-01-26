@@ -418,18 +418,18 @@
   trigger:
   - type: motion
     platform: device
-    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    device_id: 882155f67e46480e0d72c4b6440c3aa4
     entity_id: binary_sensor.ballatoio_motion
     domain: binary_sensor
   - type: motion
     platform: device
-    device_id: dc28a59dc2f54520a54e1f493e934bcc
+    device_id: ae68fde6b35b15cf203aaed0b6c31958
     entity_id: binary_sensor.sala_motion
     domain: binary_sensor
   - type: motion
     platform: device
-    device_id: 259421cbb2b9cc9d0006310a51921241
-    entity_id: binary_sensor.ikea_of_sweden_tradfri_motion_sensor_180125fe_on_off
+    device_id: be4efea626b4db6326ca984aed77cbed
+    entity_id: binary_sensor.ingresso_motion
     domain: binary_sensor
   condition:
   - condition: state
@@ -753,3 +753,29 @@
       light:
         device_id: 84962673148311eb9c83cb18ed4f5af0
       force_brightness: false
+- id: '1611555235320'
+  alias: Accendi spegni luce bagno
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 092e0edd3ead4253437d362ec635fbd9
+    entity_id: binary_sensor.bagnot_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 1423860fce627bce446c22c49665948c
+    entity_id: switch.luce_bagnot
+    domain: switch
+  - wait_for_trigger:
+    - type: no_motion
+      platform: device
+      device_id: 092e0edd3ead4253437d362ec635fbd9
+      entity_id: binary_sensor.bagnot_motion
+      domain: binary_sensor
+  - type: turn_off
+    device_id: 1423860fce627bce446c22c49665948c
+    entity_id: switch.luce_bagnot
+    domain: switch
+  mode: single

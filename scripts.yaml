@@ -131,3 +131,21 @@ stop_netflix:
       source: com.discovery.discoplus
   mode: single
   icon: mdi:netflix
+apre_chiude_tapparella:
+  alias: Apre chiude tapparella
+  sequence:
+  - condition: template
+    value_template: '{{ state_attr( entity1 , ''current_position'') }} | int < 50'
+  - service: cover.open_cover
+    data:
+      entity_id: '{{ entity1 }}'
+  mode: restart
+  icon: mdi:party-popper
+  description: Turns on the bedroom lights and then the living room lights after a
+    delay
+  variables:
+    turn_on_entity: cover.tapp_studio
+  fields:
+    entity1:
+      description: La tapparella da muovere
+      example: cover.tapp_studio
