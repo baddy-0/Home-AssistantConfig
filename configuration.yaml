@@ -452,9 +452,9 @@ media_player:
 #            'wake_lock_size': 1  # this indentation is important!
 #        - 'standby'
 
-group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+group: !include groups.yaml
 scene: !include scenes.yaml
 logbook: !include logbook.yaml
 input_number: !include input_number.yaml

@@ -135,7 +135,8 @@ apre_chiude_tapparella:
   alias: Apre chiude tapparella
   sequence:
   - condition: template
-    value_template: '{{ state_attr( entity1 , ''current_position'') }} | int < 50'
+    value_template: '{{ state_attr( ''entity1'' , ''current_position'') }} | int <
+      50'
   - service: cover.open_cover
     data:
       entity_id: '{{ entity1 }}'
