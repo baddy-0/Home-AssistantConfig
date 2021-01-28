@@ -145,8 +145,8 @@ apre_chiude_tapparella:
   description: Turns on the bedroom lights and then the living room lights after a
     delay
   variables:
-    turn_on_entity: cover.tapp_studio
+    turn_on_entity: cover.studio
   fields:
     entity1:
       description: La tapparella da muovere
-      example: cover.tapp_studio
+      example: cover.studio

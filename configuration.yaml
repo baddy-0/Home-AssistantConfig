@@ -53,6 +53,8 @@ stream:
 
 shelly:
 
+ble_monitor:
+
 influxdb:
   host: localhost
   username: homeassistant
@@ -114,39 +116,20 @@ deebot:
     
 #Enable Cameras
 camera:
-#  - platform: generic
-#    name: davanti
-#    still_image_url: !secret Camera1_URL
-#    stream_source: !secret CameraDavanti_Source 
-  
-#  - platform: generic
-#    name: dietro
-#    still_image_url: !secret Camera2_URL
-#    stream_source: !secret CameraDietro_Source 
-
-#  - platform: generic
-#    name: tempo
-#    still_image_url: https://www.yr.no/sted/Italia/Emilia-Romagna/Bologna/meteogram.svg
-#    content_type: 'image/svg+xml'
-
   - platform: generic
     name: Faustina_live_map
     still_image_url: "http://192.168.2.250:8123/local/Faustina_liveMap.png"
     verify_ssl: false
 
-# owntracks:
-#   max_gps_accuracy: 200
-#   secret: a608a51fd748f5355d73c85d06df39ea
-
-ble_monitor:
 
 sensor:
   - platform: fritzbox_netmonitor
     host: 192.168.2.1
   - platform: fritzbox_callmonitor
     host: 192.168.2.1
-    username: admin
+    username: home-assistant
     password: !secret gw1-pass
+    phonebook: 0
   - platform: season
   - platform: owlintuition
     host: 192.168.2.250       # IP address that the NetworkOWL sends to (your Home Assistant IP)
@@ -183,6 +166,18 @@ sensor:
       valve_termo_lavoro:
         friendly_name: "Valve Termo_lavoro"
         value_template: "{{ state_attr('climate.termo_lavoro', 'valve') }}"
+        unit_of_measurement: '%'
+      valve_termo_bd:
+        friendly_name: "Valve Termo_BD"
+        value_template: "{{ state_attr('climate.termo_bd', 'valve') }}"
+        unit_of_measurement: '%'
+      valve_termo_bagnog:
+        friendly_name: "Valve Termo_BagnoG"
+        value_template: "{{ state_attr('climate.termo_bagnog', 'valve') }}"
+        unit_of_measurement: '%'
+      valve_termo_bagnop:
+        friendly_name: "Valve Termo_BagnoP"
+        value_template: "{{ state_attr('climate.termo_bagnop', 'valve') }}"
         unit_of_measurement: '%'
 
 

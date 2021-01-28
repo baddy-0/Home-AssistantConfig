@@ -1,4 +1,4 @@
-- id: '1569881736251'
+- id: 'abbassa_tapparella_bd'
   alias: Abbassa tapparella BD
   description: Se la tapparella è aperta >20 la abbassa prima dell'alba d'estate
   trigger:
@@ -50,7 +50,7 @@
       message: New HA version available
     service: notify.mobile_app_baddyphon
   mode: single
-- id: '1575463882293'
+- id: 'accendi_natale_interno'
   alias: Accendi Natale interno
   description: Quando arriva qualcuno dopo il tramonto accendi
   trigger:
@@ -64,7 +64,7 @@
   - data:
       entity_id: group.natale_int
     service: switch.turn_on
-- id: '1575463882294'
+- id: 'spegni_natale_interno'
   alias: Spegni Natale interno
   description: Quando vanno via tutti spegni tutto
   trigger:
@@ -135,39 +135,23 @@
     from: 'off'
     platform: state
     to: 'on'
-  - type: motion
-    platform: device
-    device_id: bacec0848acc4994976441b3dd32edf2
-    entity_id: binary_sensor.motion_bd
-    domain: binary_sensor
-  - type: motion
-    platform: device
-    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
-    entity_id: binary_sensor.ballatoio_motion
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.ingresso_motion
+    from: 'off'
+    to: 'on'
   - type: opened
     platform: device
-    device_id: 259817e2fe8711ea854039ed2706fe33
-    entity_id: binary_sensor.shelly_shdw_1_98f4abf3b38d_door_window
-    domain: binary_sensor
-  - type: opened
-    platform: device
-    device_id: 64f4679712f711eb94fbc156c84a53b3
-    entity_id: binary_sensor.door_sala_ingresso
-    domain: binary_sensor
-  - type: opened
-    platform: device
-    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    device_id: 57b7205a0cacb5e1551c61b55b78df42
     entity_id: binary_sensor.door_sala_grande
     domain: binary_sensor
   - type: opened
     platform: device
-    device_id: e2076f4913bd11eb99a169d7a4a39c24
-    entity_id: binary_sensor.door_luna
+    device_id: 57b7205a0cacb5e1551c61b55b78df42
+    entity_id: binary_sensor.door_sala_grande
     domain: binary_sensor
   - type: opened
     platform: device
-    device_id: 0bb49c59c69df727e00ceb6ff783ab95
+    device_id: f9e0bc60aa189f6c4954ceb9ac6bbb71
     entity_id: binary_sensor.door_lavoro
     domain: binary_sensor
   condition:
@@ -290,33 +274,38 @@
   condition:
   - type: is_not_open
     condition: device
-    device_id: 64f4679712f711eb94fbc156c84a53b3
+    device_id: a2d4d5e9465147188fef3974ecfe2730
     entity_id: binary_sensor.door_sala_ingresso
     domain: binary_sensor
   - type: is_not_open
     condition: device
-    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    device_id: 57b7205a0cacb5e1551c61b55b78df42
     entity_id: binary_sensor.door_sala_grande
     domain: binary_sensor
   action:
   - scene: scene.notte
-  - data: {}
+  - data:
+      entity_id: cover.sala_ingresso
     entity_id: cover.sala_ingresso
     service: cover.close_cover
-  - data: {}
+  - data:
+      entity_id: cover.luna
     entity_id: cover.luna
     service: cover.close_cover
   - service: cover.close_cover
-    data: {}
+    data:
+      entity_id: cover.cucina
     entity_id: cover.cucina
-  - delay: 00:01:00
+  - delay: 00:00:30
   - service: cover.set_cover_position
     data:
       position: 50
+      entity_id: cover.sala_finestre
     entity_id: cover.sala_finestre
   - service: cover.set_cover_position
     data:
       position: 50
+      entity_id: cover.studio
     entity_id: cover.studio
   mode: single
 - id: '1599082030678'
@@ -462,21 +451,6 @@
     position: 100
   - scene: scene.giorno
   mode: single
-- id: '1603385428012'
-  alias: Accendi/Spegni luce sala
-  description: ''
-  trigger:
-  - device_id: 93a337e9148411ebb917c3ac83bd9f68
-    domain: zha
-    platform: device
-    type: remote_button_short_press
-    subtype: turn_on
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
-    entity_id: light.luce_sala
-  mode: single
 - id: '1603610332180'
   alias: Luce notturna Ballatoio
   description: ''
@@ -612,8 +586,8 @@
     to: 'on'
   - type: motion
     platform: device
-    device_id: 259421cbb2b9cc9d0006310a51921241
-    entity_id: binary_sensor.ikea_of_sweden_tradfri_motion_sensor_180125fe_on_off
+    device_id: 2bb913c97f7b2274fede3c9a7f655e6a
+    entity_id: binary_sensor.tradfri_motion_sensor
     domain: binary_sensor
   - type: opened
     platform: device
@@ -627,7 +601,7 @@
     domain: binary_sensor
   condition:
   - condition: numeric_state
-    entity_id: sensor.sala_motion_lightlevel
+    entity_id: sensor.sala_motion
     below: '3'
   action:
   - service: light.turn_on
@@ -635,12 +609,12 @@
       transition: 10
       brightness: 255
       color_temp: 390
-    entity_id: light.luce_sala
+      entity_id: light.luce_sala
   - service: light.turn_on
     data:
       transition: 10
       brightness: 255
-    entity_id: light.luce_ingresso
+      entity_id: light.luce_ingresso
   - service: timer.start
     data: {}
     entity_id: timer.luce_sala
@@ -658,7 +632,7 @@
         - light.luce_ingresso
       button_left_short: []
       force_brightness: false
-      remote: 93a337e9148411ebb917c3ac83bd9f68
+      remote: 7ba83827eeb597e5363473cfa2214483
 - id: '1609091129171'
   alias: Abbassa tapparelle al tramonto
   description: ''
@@ -672,12 +646,12 @@
     state: winter
   - type: is_not_open
     condition: device
-    device_id: 3b642f7c12f911ebb06b8d30438d5428
+    device_id: 57b7205a0cacb5e1551c61b55b78df42
     entity_id: binary_sensor.door_sala_grande
     domain: binary_sensor
   - type: is_not_open
     condition: device
-    device_id: 0bb49c59c69df727e00ceb6ff783ab95
+    device_id: f9e0bc60aa189f6c4954ceb9ac6bbb71
     entity_id: binary_sensor.door_lavoro
     domain: binary_sensor
   - condition: state
@@ -699,11 +673,11 @@
   - service: light.turn_off
     data:
       transition: 10
-    entity_id: light.luce_sala
+      entity_id: light.luce_sala
   - service: light.turn_off
     data:
       transition: 10
-    entity_id: light.luce_ingresso
+      entity_id: light.luce_ingresso
   mode: single
 - id: '1610053784881'
   alias: Spegni ikea all'avvio
@@ -714,34 +688,22 @@
   condition: []
   action:
   - type: turn_off
-    device_id: 7bb97f275400fef03a76c75038651b86
+    device_id: b608774af32a2818d6e8541dc758fa51
     entity_id: light.luce_ballatoio
     domain: light
   - type: turn_off
-    device_id: bfa498f0167d11eb84525f97d370594c
+    device_id: 1ca2d320c9940753d22da4a01c6cd0a1
     entity_id: light.luce_ingresso
     domain: light
   - type: turn_off
-    device_id: 84aa0e1c15fa11eb8cfb1f4364eb60d7
-    entity_id: light.luce_scala
-    domain: light
-  - type: turn_off
-    device_id: 84962673148311eb9c83cb18ed4f5af0
+    device_id: 53ff71775292c2f361abd7994ad6f6fb
     entity_id: light.luce_sala
     domain: light
+  - type: turn_off
+    device_id: 80ee049f7165d54580a92c2ebddd8107
+    entity_id: light.luce_scala
+    domain: light
   mode: single
-- id: '1610953776683'
-  alias: Accendi/Spegni Luce sala Blueprint ZHA
-  description: ''
-  use_blueprint:
-    path: wormie_dk/zha-ikea-five-button-remote.yaml
-    input:
-      remote: 93a337e9148411ebb917c3ac83bd9f68
-      button_on_off:
-      - type: toggle
-        device_id: 84962673148311eb9c83cb18ed4f5af0
-        entity_id: light.luce_sala
-        domain: light
 - id: '1610954088671'
   alias: ZHA - IKEA five button remote for lights
   description: ''
