@@ -76,10 +76,10 @@ mqtt:
   #  topic: 'hass/status'
   #  payload: 'offline'
 
-zha:
-  zigpy_config:
-    ota:
-      ikea_provider: true
+# zha:
+#  zigpy_config:
+#    ota:
+#      ikea_provider: true
 
 # zwave:
 #   usb_path: /dev/ttyACM0
