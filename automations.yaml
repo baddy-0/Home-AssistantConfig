@@ -452,7 +452,7 @@
   trigger:
   - type: motion
     platform: device
-    device_id: 98245a5c74fd4997bd7b8ff72d67ad9f
+    device_id: 882155f67e46480e0d72c4b6440c3aa4
     entity_id: binary_sensor.ballatoio_motion
     domain: binary_sensor
   condition: []
@@ -468,15 +468,15 @@
     entity_id: light.luce_ballatoio
   mode: single
 - id: '1603632039817'
-  alias: Luce Spegni primo piano
+  alias: Spegni primo piano
   description: Se non ci sono movimenti spegne tutto
   trigger:
-  - type: motion
+  - type: no_motion
     platform: device
     device_id: 882155f67e46480e0d72c4b6440c3aa4
     entity_id: binary_sensor.ballatoio_motion
     domain: binary_sensor
-  - type: motion
+  - type: no_motion
     platform: device
     device_id: 6f85b5501a7209ff8562ffff19785c9c
     entity_id: binary_sensor.motion_bd
@@ -545,7 +545,7 @@
   trigger:
   - type: motion
     platform: device
-    device_id: bacec0848acc4994976441b3dd32edf2
+    device_id: 6f85b5501a7209ff8562ffff19785c9c
     entity_id: binary_sensor.motion_bd
     domain: binary_sensor
   condition: []
@@ -572,9 +572,11 @@
   alias: Accendi Sala su Movimenti
   description: ''
   trigger:
-  - platform: state
+  - type: motion
+    platform: device
+    device_id: ae68fde6b35b15cf203aaed0b6c31958
     entity_id: binary_sensor.sala_motion
-    to: 'on'
+    domain: binary_sensor
   - type: motion
     platform: device
     device_id: 2bb913c97f7b2274fede3c9a7f655e6a
@@ -590,11 +592,19 @@
     device_id: a2d4d5e9465147188fef3974ecfe2730
     entity_id: binary_sensor.door_sala_ingresso
     domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: be4efea626b4db6326ca984aed77cbed
+    entity_id: binary_sensor.ingresso_motion
+    domain: binary_sensor
   condition:
   - condition: numeric_state
     entity_id: sensor.sala_motion
     below: '3'
   action:
+  - service: timer.start
+    data: {}
+    entity_id: timer.luce_sala
   - service: light.turn_on
     data:
       transition: 10
@@ -606,9 +616,6 @@
       transition: 10
       brightness: 255
     entity_id: light.luce_ingresso
-  - service: timer.start
-    data: {}
-    entity_id: timer.luce_sala
   mode: restart
 - id: '1609077213722'
   alias: Accendi/Spegni Luce sala Blueprint DECONZ
