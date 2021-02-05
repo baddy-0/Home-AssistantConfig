@@ -365,22 +365,23 @@
   alias: Attiva Notte se in sala non c'è più nessuno
   description: Se tutti sono a casa, è inverno, la porta dietro è chiusa
   trigger:
-  - type: not_occupied
+  - type: no_motion
     platform: device
-    device_id: dc28a59dc2f54520a54e1f493e934bcc
-    entity_id: binary_sensor.sala_motion_occupancy
+    device_id: ae68fde6b35b15cf203aaed0b6c31958
+    entity_id: binary_sensor.sala_motion
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 15
+      minutes: 5
       seconds: 0
+      milliseconds: 0
   condition:
   - condition: state
     state: home
     entity_id: group.family
   - type: is_not_open
     condition: device
-    device_id: 64f4679712f711eb94fbc156c84a53b3
+    device_id: a2d4d5e9465147188fef3974ecfe2730
     entity_id: binary_sensor.door_sala_ingresso
     domain: binary_sensor
   - condition: state
