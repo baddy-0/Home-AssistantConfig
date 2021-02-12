@@ -619,7 +619,7 @@
     entity_id: light.luce_ingresso
   mode: restart
 - id: '1609077213722'
-  alias: Accendi/Spegni Luce sala Blueprint DECONZ
+  alias: Accendi/spegni Luce sala Blueprint DECONZ
   description: ''
   use_blueprint:
     path: Bram_Kragten/deconz-ikea-five-button-remote-for-lights.yaml
@@ -704,7 +704,7 @@
     domain: light
   mode: single
 - id: '1611555235320'
-  alias: Accendi spegni luce bagno
+  alias: Accendi/spegni luce bagno
   description: ''
   trigger:
   - type: motion
@@ -724,6 +724,11 @@
       device_id: 092e0edd3ead4253437d362ec635fbd9
       entity_id: binary_sensor.bagnot_motion
       domain: binary_sensor
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 30
+        milliseconds: 0
   - type: turn_off
     device_id: 1423860fce627bce446c22c49665948c
     entity_id: switch.luce_bagnot
