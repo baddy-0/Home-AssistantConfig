@@ -447,6 +447,23 @@ media_player:
 #            'wake_lock_size': 1  # this indentation is important!
 #        - 'standby'
 
+o365:
+  client_secret: "099-I.1l8_4X2j_~gFuSA5py8U_25noL_7"
+  client_id: "3264665d-cb1b-444a-b204-48b4dd82e73f"
+  email_sensor:
+    - name: inbox
+      max_items: 2
+      is_unread: True
+  query_sensors:
+    - name: "HA Notifications"
+      folder: "Inbox/Test_Inbox"
+      from: "d.badiali@cineca.it"
+      subject_contains: "Notifcation from home assistant"
+      has_attachment: True
+      max_items: 2
+      is_unread: True
+
+
 automation: !include automations.yaml
 script: !include scripts.yaml
 group: !include groups.yaml

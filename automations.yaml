@@ -578,11 +578,6 @@
     device_id: ae68fde6b35b15cf203aaed0b6c31958
     entity_id: binary_sensor.sala_motion
     domain: binary_sensor
-  - type: motion
-    platform: device
-    device_id: 2bb913c97f7b2274fede3c9a7f655e6a
-    entity_id: binary_sensor.tradfri_motion_sensor
-    domain: binary_sensor
   - type: opened
     platform: device
     device_id: 259817e2fe8711ea854039ed2706fe33
@@ -734,3 +729,54 @@
     entity_id: switch.luce_bagnot
     domain: switch
   mode: single
+- id: '1613825162378'
+  alias: Accendi/spegni sottoscala
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 2bb913c97f7b2274fede3c9a7f655e6a
+    entity_id: binary_sensor.tradfri_motion_sensor
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_on
+    device_id: fa2febba9cbbd6e0ad0919b2a8f3d3ee
+    entity_id: light.luce_sottoscala
+    domain: light
+    brightness_pct: 100
+  - wait_for_trigger:
+    - type: no_motion
+      platform: device
+      device_id: 2bb913c97f7b2274fede3c9a7f655e6a
+      entity_id: binary_sensor.tradfri_motion_sensor
+      domain: binary_sensor
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 20
+        milliseconds: 0
+    timeout: 00:01:00
+  - type: turn_off
+    device_id: fa2febba9cbbd6e0ad0919b2a8f3d3ee
+    entity_id: light.luce_sottoscala
+    domain: light
+  mode: single
+- id: '1613826132121'
+  alias: IKEA E1524/E1810 5-button Remote - Universal Support
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e1524_e1810_universal.yaml
+    input:
+      remote: 7ba83827eeb597e5363473cfa2214483
+      integration: deCONZ
+      action_center_short:
+      - type: toggle
+        device_id: 1ca2d320c9940753d22da4a01c6cd0a1
+        entity_id: light.luce_ingresso
+        domain: light
+      action_center_hold:
+      - type: turn_off
+        device_id: 7c2bbc3c70ea7c8fd289761c1900f61d
+        entity_id: light.gruppoluciikea
+        domain: light
