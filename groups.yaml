@@ -14,6 +14,9 @@ natale_int:
 movimento:
    name: Tutti i sensori
    entities:
-     - binary_sensor.presence_3
-     - binary_sensor.presence_8
-     - binary_sensor.presence_13
+     - binary_sensor.motion_sala
+     - binary_sensor.motion_ingresso
+     - binary_sensor.motion_ballatoio
+     - binary_sensor.motion_bagnot
+     - binary_sensor.motion_sottoscala
+     - bynary_sensor.motion_bd
