@@ -204,6 +204,10 @@ binary_sensor:
 switch:
   - platform: wake_on_lan
     mac: "08:60:6e:85:c8:fa"
+  - platform: wake_on_lan
+    name: "wol-pc-server"
+    host: 192.168.2.234
+    mac: "f4:6d:04:48:e5:a9"
 #  - platform: template
 #    switches:
 #      camera_davanti_ftp:
