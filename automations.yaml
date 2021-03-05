@@ -499,6 +499,10 @@
     device_id: b608774af32a2818d6e8541dc758fa51
     entity_id: light.luce_ballatoio
     domain: light
+  - type: turn_off
+    device_id: ab7844ec2c0394653ea090aa9c9db6e5
+    entity_id: light.luce_comodino_daniele
+    domain: light
   mode: single
 - id: '1605560799342'
   alias: Bentornata Luna
