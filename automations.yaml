@@ -287,29 +287,21 @@
     domain: binary_sensor
   action:
   - scene: scene.notte
-  - data:
-      entity_id: cover.sala_ingresso
-    entity_id: cover.sala_ingresso
+  - data: {}
     service: cover.close_cover
-  - data:
-      entity_id: cover.luna
-    entity_id: cover.luna
-    service: cover.close_cover
-  - service: cover.close_cover
-    data:
-      entity_id: cover.cucina
-    entity_id: cover.cucina
+    target:
+      entity_id:
+      - cover.sala_ingresso
+      - cover.luna
+      - cover.cucina
   - delay: 00:00:30
   - service: cover.set_cover_position
     data:
       position: 50
-      entity_id: cover.sala_finestre
-    entity_id: cover.sala_finestre
-  - service: cover.set_cover_position
-    data:
-      position: 50
-      entity_id: cover.studio
-    entity_id: cover.studio
+    target:
+      entity_id:
+      - cover.sala_finestre
+      - cover.studio
   mode: single
 - id: '1599082030678'
   alias: ZZ notifica movimenti
@@ -580,9 +572,10 @@
     state: 'off'
   - service: light.turn_on
     data:
-      brightness: 10
       rgb_color: (255,0,0)
-    entity_id: light.luce_comodino_daniele
+      brightness: 128
+    target:
+      entity_id: light.luce_comodino_daniele
   mode: single
 - id: '1609004028527'
   alias: Accendi Sala su Movimenti
