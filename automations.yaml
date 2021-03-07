@@ -457,11 +457,14 @@
     data:
       transition: 10
       brightness: 20
-    entity_id: light.luce_scala
+    target:
+      entity_id: light.luce_scala
   - service: light.turn_on
     data:
       brightness: 1
-    entity_id: light.luce_ballatoio
+      color_name: darkred
+    target:
+      device_id: a046f317a908d3101703c491e898e8f6
   mode: single
 - id: '1603632039817'
   alias: Spegni primo piano
@@ -488,7 +491,7 @@
     entity_id: light.luce_lettobd
     domain: light
   - type: turn_off
-    device_id: b608774af32a2818d6e8541dc758fa51
+    device_id: a046f317a908d3101703c491e898e8f6
     entity_id: light.luce_ballatoio
     domain: light
   - type: turn_off
@@ -566,7 +569,9 @@
   - service: light.turn_on
     data:
       brightness: 1
-    entity_id: light.luce_ballatoio
+      color_name: darkblue
+    target:
+      device_id: a046f317a908d3101703c491e898e8f6
   - condition: state
     entity_id: light.luce_comodino_daniele
     state: 'off'
