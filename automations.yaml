@@ -46,9 +46,9 @@
     platform: state
     to: 'on'
   action:
-  - data:
-      message: New HA version available
-    service: notify.mobile_app_baddyphon
+  - service: notify.mobile_app_baddyphone
+    data:
+      message: È disponibile una nuova versione di Home assistant
   mode: single
 - id: accendi_natale_interno
   alias: Accendi Natale interno
@@ -266,7 +266,7 @@
     service: notify.mobile_app_baddyphon
   mode: single
 - id: '1598029687855'
-  alias: Abbassa Tapparelle su assenza
+  alias: Abbassa tapparelle su assenza
   description: Quando non c'è nessuno in casa chiudi le tapparelle
   trigger:
   - entity_id: group.family
@@ -451,7 +451,10 @@
     device_id: 882155f67e46480e0d72c4b6440c3aa4
     entity_id: binary_sensor.motion_ballatoio
     domain: binary_sensor
-  condition: []
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.motion_ballatoio
+    below: '10'
   action:
   - service: light.turn_on
     data:
@@ -482,18 +485,14 @@
     domain: binary_sensor
   condition: []
   action:
-  - type: turn_off
-    device_id: 80ee049f7165d54580a92c2ebddd8107
-    entity_id: light.luce_scala
-    domain: light
-  - type: turn_off
-    device_id: 38f08a7827eedac204b9ea6cbe774d8f
-    entity_id: light.luce_lettobd
-    domain: light
-  - type: turn_off
-    device_id: a046f317a908d3101703c491e898e8f6
-    entity_id: light.luce_ballatoio
-    domain: light
+  - service: light.turn_off
+    target:
+      device_id:
+      - a046f317a908d3101703c491e898e8f6
+      - 80ee049f7165d54580a92c2ebddd8107
+      - 38f08a7827eedac204b9ea6cbe774d8f
+    data:
+      transition: 5
   - type: turn_off
     device_id: ab7844ec2c0394653ea090aa9c9db6e5
     entity_id: light.luce_comodino_daniele
@@ -551,7 +550,10 @@
     device_id: 6f85b5501a7209ff8562ffff19785c9c
     entity_id: binary_sensor.motion_bd
     domain: binary_sensor
-  condition: []
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.motion_bd
+    below: '9'
   action:
   - service: light.turn_on
     data:
@@ -568,8 +570,8 @@
     entity_id: light.luce_scala
   - service: light.turn_on
     data:
-      brightness: 1
-      color_name: darkblue
+      color_name: coral
+      brightness: 15
     target:
       device_id: a046f317a908d3101703c491e898e8f6
   - condition: state
@@ -577,10 +579,13 @@
     state: 'off'
   - service: light.turn_on
     data:
-      rgb_color: (255,0,0)
       brightness: 128
+      rgb_color:
+      - 255
+      - 0
+      - 0
     target:
-      entity_id: light.luce_comodino_daniele
+      device_id: ab7844ec2c0394653ea090aa9c9db6e5
   mode: single
 - id: '1609004028527'
   alias: Accendi Sala su Movimenti

@@ -34,7 +34,7 @@ sensor.sonoff_100024314c_power:
 switch.sonoff_10000bd876:
   icon: mdi:home-roof
 switch.sonoff_10000cd625:
-  icon: mdi:pine-tree
+  icon: mdi:laptop
 device_tracker.ipad_di_luna:
   icon: mdi:tablet-ipad
 switch.tasmota:

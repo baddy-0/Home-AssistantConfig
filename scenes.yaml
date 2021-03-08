@@ -7,13 +7,14 @@
       shelly_id: B94EF4
       ip_address: 192.168.2.121
       protocols:
+      - mDns
+      - poll
       - CoAP-discovery
       - CoAP-msg
-      - poll
-      over_temp: 0
+      over_temp: false
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.03 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Sala-grande
       icon: mdi:window-shutter
       supported_features: 15
@@ -24,14 +25,13 @@
       shelly_id: B8A0FC
       ip_address: 192.168.2.120
       protocols:
-      - mDns
-      - poll
-      - CoAP-msg
       - CoAP-discovery
-      over_temp: false
+      - CoAP-msg
+      - poll
+      over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.04 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Sala-ingresso
       icon: mdi:window-shutter
       supported_features: 15
@@ -42,13 +42,13 @@
       shelly_id: 68C63AF982E0
       ip_address: 192.168.2.126
       protocols:
+      - CoAP-discovery
       - CoAP-msg
       - poll
-      - CoAP-discovery
       over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.04 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Sala-finestre
       icon: mdi:window-shutter
       supported_features: 15
@@ -59,14 +59,13 @@
       shelly_id: 68C63AF9674C
       ip_address: 192.168.2.127
       protocols:
-      - mDns
-      - poll
       - CoAP-discovery
       - CoAP-msg
-      over_temp: false
+      - poll
+      over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.03 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Studio
       icon: mdi:window-shutter
       supported_features: 15
@@ -86,14 +85,9 @@
       - eco
       - holiday
       - manual
-      current_temperature: 19.5
-      temperature: 20
-      preset_mode: manual
-      offset: -200
-      valve: 100
       friendly_name: Termo Studio
       supported_features: 17
-      state: auto
+      state: unavailable
     climate.termo_lavoro:
       hvac_modes:
       - auto
@@ -109,11 +103,11 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18.5
-      temperature: 19
+      current_temperature:
+      temperature: 20
       preset_mode: manual
       offset: -100
-      valve: 55
+      locked: false
       friendly_name: Termo Lavoro
       supported_features: 17
       state: auto
@@ -123,14 +117,13 @@
       shelly_id: 68C63AF96C40
       ip_address: 192.168.2.128
       protocols:
-      - mDns
-      - poll
       - CoAP-discovery
       - CoAP-msg
-      over_temp: false
+      - poll
+      over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.02 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Cucina
       icon: mdi:window-shutter
       supported_features: 15
@@ -152,7 +145,7 @@
       over_temp: false
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.02 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Sala-grande
       icon: mdi:window-shutter
       supported_features: 15
@@ -163,14 +156,13 @@
       shelly_id: E098068D2436
       ip_address: 192.168.2.122
       protocols:
-      - mDns
-      - poll
       - CoAP-discovery
       - CoAP-msg
-      over_temp: false
+      - poll
+      over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.01 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Lavoro
       icon: mdi:window-shutter
       supported_features: 15
@@ -181,12 +173,13 @@
       shelly_id: 68C63AF982E0
       ip_address: 192.168.2.126
       protocols:
+      - CoAP-discovery
       - CoAP-msg
       - poll
       over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.03 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Sala-finestre
       icon: mdi:window-shutter
       supported_features: 15
@@ -197,13 +190,13 @@
       shelly_id: 68C63AF9674C
       ip_address: 192.168.2.127
       protocols:
+      - CoAP-discovery
       - CoAP-msg
       - poll
-      - CoAP-discovery
       over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.01 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp Studio
       icon: mdi:window-shutter
       supported_features: 15
@@ -223,28 +216,28 @@
       - eco
       - holiday
       - manual
-      current_temperature: 20.5
+      current_temperature:
       temperature: 19
       preset_mode: manual
       offset: -100
-      valve: 85
+      valve: 15
+      locked: false
       friendly_name: Termo Lavoro
       supported_features: 17
-      state: heat
+      state: auto
     cover.bd:
       current_position: 22
       shelly_type: Shelly 2.5 (Roller)
       shelly_id: 68C63AF915DE
       ip_address: 192.168.2.124
       protocols:
-      - mDns
-      - poll
       - CoAP-discovery
       - CoAP-msg
-      over_temp: false
+      - poll
+      over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.01 kWh
+      total_consumption: 0.0 kWh
       friendly_name: Tapp BD
       icon: mdi:window-shutter
       supported_features: 15
@@ -264,11 +257,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18.5
-      temperature: 19
-      preset_mode: manual
-      offset: -200
       friendly_name: Termo Studio
       supported_features: 17
-      state: heat
+      state: unavailable
   icon: mdi:weather-night
