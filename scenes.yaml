@@ -179,7 +179,7 @@
       over_temp: 0
       has_firmware_update: false
       cloud_status: connected
-      total_consumption: 0.0 kWh
+      total_consumption: 0.01 kWh
       friendly_name: Tapp Sala-finestre
       icon: mdi:window-shutter
       supported_features: 15
@@ -216,11 +216,11 @@
       - eco
       - holiday
       - manual
-      current_temperature:
-      temperature: 19
+      current_temperature: 19.5
+      temperature: 20
       preset_mode: manual
       offset: -100
-      valve: 15
+      valve: 10
       locked: false
       friendly_name: Termo Lavoro
       supported_features: 17

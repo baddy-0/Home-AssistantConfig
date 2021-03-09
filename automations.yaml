@@ -571,7 +571,7 @@
   - service: light.turn_on
     data:
       color_name: coral
-      brightness: 15
+      brightness: 20
     target:
       device_id: a046f317a908d3101703c491e898e8f6
   - condition: state
@@ -579,11 +579,11 @@
     state: 'off'
   - service: light.turn_on
     data:
-      brightness: 128
       rgb_color:
       - 255
       - 0
       - 0
+      brightness: 30
     target:
       device_id: ab7844ec2c0394653ea090aa9c9db6e5
   mode: single
