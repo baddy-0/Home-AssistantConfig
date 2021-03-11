@@ -9,6 +9,11 @@ zeroconf:
 homeassistant:
    customize: !include customize.yaml
 
+api:
+
+alexa:
+  smart_home:
+
 recorder:
   purge_keep_days: 14
   exclude:

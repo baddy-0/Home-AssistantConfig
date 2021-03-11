@@ -570,7 +570,7 @@
     entity_id: light.luce_scala
   - service: light.turn_on
     data:
-      color_name: coral
+      color_name: darkblue
       brightness: 20
     target:
       device_id: a046f317a908d3101703c491e898e8f6
