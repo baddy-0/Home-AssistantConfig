@@ -13,6 +13,14 @@ api:
 
 alexa:
   smart_home:
+    filter:
+      include_entities:
+        - switch.luce_bagnot  
+        - vacuum.faustina  
+      include_domains:
+        - cover
+        - light
+        - climate
 
 recorder:
   purge_keep_days: 14
