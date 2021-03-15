@@ -383,7 +383,7 @@
     entity_id: sensor.season
     state: winter
   - condition: time
-    before: 06:00:00
+    before: 01:30:00
     after: '23:00:00'
   - condition: state
     entity_id: input_boolean.stop_automazioni
@@ -493,10 +493,11 @@
       - 38f08a7827eedac204b9ea6cbe774d8f
     data:
       transition: 5
-  - type: turn_off
-    device_id: ab7844ec2c0394653ea090aa9c9db6e5
-    entity_id: light.luce_comodino_daniele
-    domain: light
+  - service: light.turn_off
+    target:
+      device_id: ab7844ec2c0394653ea090aa9c9db6e5
+    data:
+      transition: 5
   mode: single
 - id: '1605560799342'
   alias: Bentornata Luna
@@ -583,7 +584,8 @@
       - 255
       - 0
       - 0
-      brightness: 30
+      transition: 5
+      brightness_pct: 20
     target:
       device_id: ab7844ec2c0394653ea090aa9c9db6e5
   mode: single
