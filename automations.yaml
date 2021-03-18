@@ -558,7 +558,7 @@
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 20
+      brightness_pct: 15
       rgb_color:
       - '{{ (range(0, 255)|random) }}'
       - '{{ (range(0, 128)|random) }}'
@@ -585,7 +585,7 @@
       - 0
       - 0
       transition: 5
-      brightness_pct: 20
+      brightness_pct: 15
     target:
       device_id: ab7844ec2c0394653ea090aa9c9db6e5
   mode: single
@@ -726,7 +726,7 @@
     device_id: 1423860fce627bce446c22c49665948c
     entity_id: switch.luce_bagnot
     domain: switch
-  mode: single
+  mode: restart
 - id: '1613825162378'
   alias: Accendi/spegni sottoscala
   description: ''
@@ -754,7 +754,7 @@
     device_id: fa2febba9cbbd6e0ad0919b2a8f3d3ee
     entity_id: light.luce_sottoscala
     domain: light
-  mode: single
+  mode: restart
 - id: '1613826132121'
   alias: Remote1 - Luce sala - Blueprint
   description: ''
