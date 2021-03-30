@@ -51,3 +51,9 @@ sensor.lightlevel_7:
   friendly_name: Sala_Motion
 sensor.shelly_shsw_25_68c63af915de_1_current_consumption:
   friendly_name: shelly05
+climate.thermostat_2:
+  friendly_name: Termo studio
+binary_sensor.motion_sala:
+  friendly_name: Motion sala
+sensor.motion_sala:
+  friendly_name: Motion sala
