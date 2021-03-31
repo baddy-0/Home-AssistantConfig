@@ -8,14 +8,9 @@
   condition:
   - condition: template
     value_template: '{{ state_attr(''cover.bd'', ''current_position'') > 20 }}'
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: sensor.season
-      state: spring
-    - condition: state
-      entity_id: sensor.season
-      state: summer
+  - condition: state
+    entity_id: sensor.season
+    state: spring,summer
   action:
   - data:
       position: 20
@@ -360,16 +355,11 @@
   alias: Attiva Notte se in sala non c'è più nessuno
   description: Se tutti sono a casa, è inverno, la porta dietro è chiusa
   trigger:
-  - type: no_motion
+  - type: motion
     platform: device
     device_id: ae68fde6b35b15cf203aaed0b6c31958
-    entity_id: binary_sensor.motion_sala
+    entity_id: binary_sensor.motion_sala_2
     domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
   condition:
   - condition: state
     state: home
@@ -381,7 +371,7 @@
     domain: binary_sensor
   - condition: state
     entity_id: sensor.season
-    state: winter
+    state: winter,spring
   - condition: time
     before: 01:30:00
     after: '23:00:00'
@@ -392,10 +382,10 @@
   - scene: scene.notte
   - service: cover.close_cover
     data: {}
-    entity_id: cover.sala_ingresso
-  - service: cover.close_cover
-    data: {}
-    entity_id: cover.cucina
+    target:
+      entity_id:
+      - cover.sala_ingresso
+      - cover.cucina
   mode: single
 - id: '1601963950089'
   alias: Attiva giorno
@@ -409,17 +399,17 @@
   - type: motion
     platform: device
     device_id: ae68fde6b35b15cf203aaed0b6c31958
-    entity_id: binary_sensor.motion_sala
+    entity_id: binary_sensor.motion_sala_2
     domain: binary_sensor
   - type: motion
     platform: device
     device_id: be4efea626b4db6326ca984aed77cbed
-    entity_id: binary_sensor.motion_ingresso
+    entity_id: binary_sensor.presence_13
     domain: binary_sensor
   condition:
   - condition: state
     entity_id: sensor.season
-    state: winter
+    state: winter,spring
   - condition: sun
     before: sunset
     before_offset: -06:15:00
@@ -481,7 +471,7 @@
   - type: no_motion
     platform: device
     device_id: 6f85b5501a7209ff8562ffff19785c9c
-    entity_id: binary_sensor.motion_bd
+    entity_id: binary_sensor.presence_26
     domain: binary_sensor
   condition: []
   action:
@@ -489,7 +479,6 @@
     target:
       device_id:
       - a046f317a908d3101703c491e898e8f6
-      - 80ee049f7165d54580a92c2ebddd8107
       - 38f08a7827eedac204b9ea6cbe774d8f
     data:
       transition: 5
@@ -549,7 +538,7 @@
   - type: motion
     platform: device
     device_id: 6f85b5501a7209ff8562ffff19785c9c
-    entity_id: binary_sensor.motion_bd
+    entity_id: binary_sensor.presence_26
     domain: binary_sensor
   condition:
   - condition: numeric_state
@@ -574,7 +563,8 @@
       color_name: darkblue
       brightness: 20
     target:
-      device_id: a046f317a908d3101703c491e898e8f6
+      entity_id:
+      - light.luce_ballatoio
   - condition: state
     entity_id: light.luce_comodino_daniele
     state: 'off'
@@ -587,7 +577,8 @@
       transition: 5
       brightness_pct: 15
     target:
-      device_id: ab7844ec2c0394653ea090aa9c9db6e5
+      entity_id:
+      - light.luce_comodino_daniele
   mode: single
 - id: '1609004028527'
   alias: Accendi Sala su Movimenti
@@ -596,7 +587,7 @@
   - type: motion
     platform: device
     device_id: ae68fde6b35b15cf203aaed0b6c31958
-    entity_id: binary_sensor.motion_sala
+    entity_id: binary_sensor.motion_sala_2
     domain: binary_sensor
   - type: opened
     platform: device
@@ -631,7 +622,8 @@
     data:
       transition: 10
       brightness: 255
-    entity_id: light.luce_ingresso
+    target:
+      entity_id: light.luce_ingresso
   mode: restart
 - id: '1609091129171'
   alias: Abbassa tapparelle al tramonto
@@ -677,7 +669,8 @@
   - service: light.turn_off
     data:
       transition: 10
-    entity_id: light.luce_ingresso
+    target:
+      entity_id: light.luce_ingresso
   mode: single
 - id: '1610053784881'
   alias: Spegni ikea all'avvio
