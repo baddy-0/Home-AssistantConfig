@@ -480,6 +480,7 @@
       device_id:
       - a046f317a908d3101703c491e898e8f6
       - 38f08a7827eedac204b9ea6cbe774d8f
+      - 80ee049f7165d54580a92c2ebddd8107
     data:
       transition: 5
   - service: light.turn_off
