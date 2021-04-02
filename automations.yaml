@@ -588,7 +588,7 @@
   - type: motion
     platform: device
     device_id: ae68fde6b35b15cf203aaed0b6c31958
-    entity_id: binary_sensor.motion_sala_2
+    entity_id: binary_sensor.motion_sala
     domain: binary_sensor
   - type: opened
     platform: device

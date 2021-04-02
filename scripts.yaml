@@ -33,12 +33,12 @@ attiva_goccia_davanti:
   sequence:
   - type: turn_on
     device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_1
+    entity_id: switch.goccia_davanti
     domain: switch
   - delay: '{{ states(''input_number.timer_goccia1'') | multiply(60) | int }}'
   - type: turn_off
     device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_1
+    entity_id: switch.goccia_davanti
     domain: switch
   mode: single
   icon: mdi:watering-can
@@ -47,12 +47,12 @@ attiva_pioggia_davanti:
   sequence:
   - type: turn_on
     device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_2
+    entity_id: switch.pioggia_davanti
     domain: switch
   - delay: 00:{{ states('input_number.timer_pioggia1') | int }}:00
   - type: turn_off
     device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_2
+    entity_id: switch.pioggia_davanti
     domain: switch
   mode: single
   icon: mdi:water
@@ -75,12 +75,12 @@ attiva_pioggia_dietro:
   sequence:
   - type: turn_on
     device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_4
+    entity_id: switch.pioggia_dietro
     domain: switch
   - delay: 00:{{ states('input_number.timer_pioggia1') | int }}:00
   - type: turn_off
     device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_4
+    entity_id: switch.pioggia_dietro
     domain: switch
   mode: single
   icon: mdi:water

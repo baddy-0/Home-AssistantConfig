@@ -41,12 +41,16 @@ switch.tasmota:
   icon: mdi:dip-switch
 switch.4chpro3_1:
   icon: mdi:watering-can
+  friendly_name: Irrigazione goccia davanti
 switch.4chpro3_2:
   icon: mdi:water
+  friendly_name: Irrigazione pioggia davanti
 switch.4chpro3_3:
   icon: mdi:watering-can
+  friendly_name: Irrigazione goccia dietro
 switch.4chpro3_4:
   icon: mdi:water
+  friendly_name: Irrigazione pioggia dietro
 sensor.lightlevel_7:
   friendly_name: Sala_Motion
 sensor.shelly_shsw_25_68c63af915de_1_current_consumption:
@@ -57,3 +61,7 @@ binary_sensor.motion_sala:
   friendly_name: Motion sala
 sensor.motion_sala:
   friendly_name: Motion sala
+switch.pioggia_davanti:
+  icon: mdi:water
+switch.pioggia_dietro:
+  icon: mdi:water
