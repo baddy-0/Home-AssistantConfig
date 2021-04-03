@@ -62,6 +62,10 @@ binary_sensor.motion_sala:
 sensor.motion_sala:
   friendly_name: Motion sala
 switch.pioggia_davanti:
-  icon: mdi:water
+  icon: mdi:sprinkler
 switch.pioggia_dietro:
-  icon: mdi:water
+  icon: mdi:sprinkler
+script.attiva_pioggia_davanti:
+  icon: mdi:sprinkler
+script.attiva_pioggia_dietro:
+  icon: mdi:sprinkler

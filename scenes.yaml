@@ -279,7 +279,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18
+      current_temperature: 19
       temperature: 32
       preset_mode: manual
       offset: -100
@@ -303,7 +303,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18
+      current_temperature: 19
       temperature: 32
       preset_mode: manual
       offset: -200
@@ -327,7 +327,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18.5
+      current_temperature: 19
       temperature: 32
       preset_mode: manual
       offset: -100
@@ -351,7 +351,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18.5
+      current_temperature: 19.5
       temperature: 32
       preset_mode: manual
       offset: -100
@@ -375,7 +375,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18
+      current_temperature: 18.5
       temperature: 32
       preset_mode: manual
       offset: -200
@@ -406,6 +406,101 @@
       valve: 100
       locked: false
       friendly_name: Termo cucina
+      supported_features: 17
+      state: heat
+    climate.termo_bagnop:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20
+      temperature: 32
+      preset_mode: manual
+      offset: -100
+      valve: 100
+      locked: false
+      friendly_name: Termo bagnoP
+      supported_features: 17
+      state: heat
+    climate.termo_bagnog:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20
+      temperature: 32
+      preset_mode: manual
+      offset: -100
+      valve: 100
+      locked: false
+      friendly_name: Termo bagnoG
+      supported_features: 17
+      state: heat
+    climate.termo_bd:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20.5
+      temperature: 32
+      preset_mode: manual
+      offset: -100
+      locked: false
+      friendly_name: Termo BD
+      supported_features: 17
+      state: heat
+    climate.termo_lavoro:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20
+      temperature: 32
+      preset_mode: manual
+      offset: -100
+      valve: 100
+      locked: false
+      friendly_name: Termo lavoro
       supported_features: 17
       state: heat
   icon: mdi:radiator-off
@@ -427,7 +522,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18
+      current_temperature: 19
       temperature: 20
       preset_mode: manual
       offset: -100
@@ -435,7 +530,7 @@
       locked: false
       friendly_name: Termo bagnoT
       supported_features: 17
-      state: auto
+      state: heat
     climate.termo_ingresso:
       hvac_modes:
       - auto
@@ -451,7 +546,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18
+      current_temperature: 19
       temperature: 20
       preset_mode: manual
       offset: -200
@@ -459,7 +554,7 @@
       locked: false
       friendly_name: Termo ingresso
       supported_features: 17
-      state: auto
+      state: heat
     climate.termo_sala:
       hvac_modes:
       - auto
@@ -475,7 +570,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18.5
+      current_temperature: 19.5
       temperature: 20
       preset_mode: manual
       offset: -100
@@ -483,7 +578,7 @@
       locked: false
       friendly_name: Termo sala
       supported_features: 17
-      state: auto
+      state: heat
     climate.termo_salotto:
       hvac_modes:
       - auto
@@ -499,7 +594,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18.5
+      current_temperature: 19.5
       temperature: 20
       preset_mode: manual
       offset: -100
@@ -523,7 +618,7 @@
       - eco
       - holiday
       - manual
-      current_temperature: 18
+      current_temperature: 18.5
       temperature: 20
       preset_mode: manual
       offset: -200
@@ -554,6 +649,102 @@
       valve: 100
       locked: false
       friendly_name: Termo cucina
+      supported_features: 17
+      state: auto
+    climate.termo_bagnog:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20
+      temperature: 20
+      preset_mode: manual
+      offset: -100
+      valve: 100
+      locked: false
+      friendly_name: Termo bagnoG
+      supported_features: 17
+      state: auto
+    climate.termo_bagnop:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20
+      temperature: 20
+      preset_mode: manual
+      offset: -100
+      valve: 100
+      locked: false
+      friendly_name: Termo bagnoP
+      supported_features: 17
+      state: auto
+    climate.termo_bd:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20.5
+      temperature: 19
+      preset_mode: manual
+      offset: -100
+      valve: 100
+      locked: false
+      friendly_name: Termo BD
+      supported_features: 17
+      state: heat
+    climate.termo_lavoro:
+      hvac_modes:
+      - auto
+      - heat
+      - 'off'
+      min_temp: 7
+      max_temp: 35
+      preset_modes:
+      - auto
+      - boost
+      - comfort
+      - complex
+      - eco
+      - holiday
+      - manual
+      current_temperature: 20
+      temperature: 20
+      preset_mode: manual
+      offset: -100
+      valve: 100
+      locked: false
+      friendly_name: Termo lavoro
       supported_features: 17
       state: auto
   icon: mdi:radiator
