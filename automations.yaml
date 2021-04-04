@@ -185,7 +185,7 @@
   mode: single
 - id: '1585945029552'
   alias: Irrigazione
-  description: Irrigazione mezzora prima dell'alba LU-MA-ME-GI-VE-SA-DO
+  description: Irrigazione mezzora prima dell'alba
   trigger:
   - event: sunrise
     offset: -00:30:00
