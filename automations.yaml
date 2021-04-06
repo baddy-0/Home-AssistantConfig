@@ -147,7 +147,7 @@
   - type: opened
     platform: device
     device_id: 57b7205a0cacb5e1551c61b55b78df42
-    entity_id: binary_sensor.door_sala_grande
+    entity_id: binary_sensor.door_salotto
     domain: binary_sensor
   - type: opened
     platform: device
@@ -288,7 +288,7 @@
   - type: is_not_open
     condition: device
     device_id: 57b7205a0cacb5e1551c61b55b78df42
-    entity_id: binary_sensor.door_sala_grande
+    entity_id: binary_sensor.door_salotto
     domain: binary_sensor
   action:
   - scene: scene.notte
@@ -653,7 +653,7 @@
   - type: is_not_open
     condition: device
     device_id: 57b7205a0cacb5e1551c61b55b78df42
-    entity_id: binary_sensor.door_sala_grande
+    entity_id: binary_sensor.door_salotto
     domain: binary_sensor
   - type: is_not_open
     condition: device
