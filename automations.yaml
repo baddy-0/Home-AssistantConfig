@@ -219,6 +219,8 @@
     - mon
   action:
   - service: auto_backup.snapshot_full
+    data:
+      keep_days: 30
   - service: auto_backup.purge
     data: {}
   mode: single
