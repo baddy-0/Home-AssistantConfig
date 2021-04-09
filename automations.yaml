@@ -623,21 +623,22 @@
     below: '50'
   action:
   - service: timer.start
-    data: {}
-    entity_id: timer.luce_sala
+    data:
+      duration: '0'
+    target:
+      entity_id: timer.luce_sala
   - service: light.turn_on
     data:
       transition: 10
-      brightness: 66
+      brightness: 70
       color_temp: 390
-      brightness_step: 254
     target:
-      entity_id: light.luce_sala
+      entity_id:
+      - light.luce_sala
   - service: light.turn_on
     data:
       transition: 10
       brightness: 93
-      brightness_step: 254
     target:
       entity_id: light.luce_ingresso
   mode: restart
