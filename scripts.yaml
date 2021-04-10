@@ -150,3 +150,16 @@ apre_chiude_tapparella:
     entity1:
       description: La tapparella da muovere
       example: cover.studio
+teresina_pulisci_cucina:
+  alias: Teresina pulisci cucina
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: spot_area
+      params:
+        rooms: 4
+        cleanings: 1
+    target:
+      entity_id: vacuum.teresina
+  mode: single
+  icon: hass:robot-vacuum

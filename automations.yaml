@@ -561,6 +561,7 @@
   - service: light.turn_on
     data:
       brightness_pct: 10
+      white_value: 50
       transition: 10
       rgb_color:
       - '{{ (range(0, 255)|random) }}'
