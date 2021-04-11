@@ -200,7 +200,6 @@
   action:
   - service: script.attiva_goccia_davanti
     data: {}
-    entity_id: script.1604516928596
   - service: script.attiva_goccia_dietro
     data: {}
   - service: script.attiva_pioggia_davanti
