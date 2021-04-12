@@ -837,3 +837,19 @@
           brightness_pct: 1
           transition: 5
         entity_id: light.luce_sala
+- id: '1618128207014'
+  alias: Pulisci cucina
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition: []
+  action:
+  - service: vacuum.send_command
+    target:
+      entity_id: vacuum.teresina
+    data:
+      params:
+        rooms: 4
+        cleanings: 2
+  mode: single

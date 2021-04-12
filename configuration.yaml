@@ -197,10 +197,27 @@ sensor:
         friendly_name: "Valve Termo_BagnoP"
         value_template: "{{ state_attr('climate.termo_bagnop', 'valve') }}"
         unit_of_measurement: '%'
+      valve_termo_bagnot:
+        friendly_name: "Valve Termo_BagnoT"
+        value_template: "{{ state_attr('climate.termo_bagnot', 'valve') }}"
+        unit_of_measurement: '%'
+      valve_termo_sala:
+        friendly_name: "Valve Termo_sala"
+        value_template: "{{ state_attr('climate.termo_sala', 'valve') }}"
+        unit_of_measurement: '%'
+      valve_termo_salotto:
+        friendly_name: "Valve Termo_salotto"
+        value_template: "{{ state_attr('climate.termo_salotto', 'valve') }}"
+        unit_of_measurement: '%'
+      valve_termo_cucina:
+        friendly_name: "Valve Termo_cucina"
+        value_template: "{{ state_attr('climate.termo_cucina', 'valve') }}"
+        unit_of_measurement: '%'
       valve_termo_ingresso:
-        friendly_name: "Valve termo_ingresso
-        value_template: "{{ state_attr('climate.termo_ingresso',valve' )}}"
-        unit_of_measurement: "%"
+        friendly_name: "Valve Termo_ingresso"
+        value_template: "{{ state_attr('climate.termo_ingresso', 'valve') }}"
+        unit_of_measurement: '%'
+
 
 binary_sensor:
   - platform: uptimerobot
