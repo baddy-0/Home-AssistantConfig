@@ -59,14 +59,14 @@ attiva_pioggia_davanti:
 attiva_goccia_dietro:
   alias: Attiva goccia dietro per un po
   sequence:
-  - type: turn_on
-    device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_3
-    domain: switch
-  - delay: 00:{{ states('input_number.timer_goccia1') | int }}:00
   - type: turn_off
     device_id: 44271f14ce814a0bb6164a6de161dac9
-    entity_id: switch.4chpro3_3
+    entity_id: switch.goccia_dietro
+    domain: switch
+  - delay: '{{ states(''input_number.timer_goccia1'') | multiply(60) | int }}'
+  - type: turn_off
+    device_id: 44271f14ce814a0bb6164a6de161dac9
+    entity_id: switch.goccia_dietro
     domain: switch
   mode: single
   icon: mdi:watering-can
