@@ -34,6 +34,12 @@ auto_backup:
   auto_purge: true
   keep_days: 21
   
+samsungtv:
+  - host: 192.168.2.150
+    turn_on_action:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: 64:E7:D8:FF:95:00
 http:
 #   ssl_certificate: /ssl/fullchain.pem
 #   ssl_key: /ssl/privkey.pem
@@ -430,6 +436,10 @@ google_assistant:
     - switch
 
 media_player:
+  - platform: samsungtv_tizen
+    name: Samsung Q95
+    host: 192.168.2.150
+    mac: 64:E7:D8:FF:95:00
   - platform: mpd
     host: 192.168.2.250
   - platform: kodi
