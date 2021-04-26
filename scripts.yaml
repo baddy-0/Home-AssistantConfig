@@ -59,7 +59,7 @@ attiva_pioggia_davanti:
 attiva_goccia_dietro:
   alias: Attiva goccia dietro per un po
   sequence:
-  - type: turn_off
+  - type: turn_on
     device_id: 44271f14ce814a0bb6164a6de161dac9
     entity_id: switch.goccia_dietro
     domain: switch
